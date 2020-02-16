@@ -1,0 +1,28 @@
+%Helper file which allows me compile the article without worrying about ABNT stuff
+
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=25mm,bottom=25mm,width=150mm]{geometry}
+\usepackage[brazilian]{babel}
+\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{listings}
+\usepackage{graphicx}
+\lstset{language=Python,
+  basicstyle=\ttfamily\scriptsize}
+
+\input{figures/figures}
+\renewcommand{\cite}{\parencite}
+
+\begin{document}
+\title{Simulador de circuitos digitais em Python}
+\author{Bruno Gomes}
+\date{\today}
+\maketitle
+
+\input{tex/introducao}
+\input{tex/revisao}
+\input{tex/metodologia}
+\input{tex/analise}
+\input{tex/conclusao}
+\printbibliography
+\end{document}
