@@ -2,39 +2,37 @@
 Como foi abordado na introdução, esse trabalho une dois temas: expressões regulares e programação funcional.
 Esses temas serão, primeiramente, discutidos separadamente, e em seguida será feito uma previa de como será feita a construção do motor de processamento de expressões regulares.
 
-\subsubsection{Expressoes Regulares}
+\subsection{Expressão Regular}
 
-% TODO: adicionar historia, kleene, equivalencia entre automatas e regex.
+\subsubsection{Introdução as expressões regulares}
 
-Uma expressao regular (regex) eh um string de caracters que define um padrao de busca.
-Essas strings sao construidas a fim de encontrar/extrair informacoes em texto que seguem uma estrutura pre conhecida com elementos dinamicos.
+Expressões regulares, tambem conhecidas como \emph{regex} (da junção do nome em inglês, \emph{regular expression}) são utilizadas para realizar buscas complexas sobre strings.
+Para Cox, "expressões regulares são uma notação que descreve um conjunto de strings. Quando alguma string está no conjunto descrito pela expressão regular, pode-se dizer que essa expressão regular corresponde a esse string." \cite{cox}.
 
-Um exemplo, eh possivel escrever uma regex para encontrar em um texto todas as datas escritas no formato usual de DD/MM/AAAA, onde DD indica o dia, MM o mes e AAAA o ano.
-Uma regex capaz de encontrar esse padrao e ''[0-9]{2}\\/[0-9]{2}\\/[0-9]{4}''.
-Essa regex indica que para um texto ser aceito ele deve contar os digitos de 0 a 9, repetidos duas vezes (indicado pelo substring [0-9]{2}), seguido por uma barra, outro grupo de dois digitos, outra barra e finalemente um groupo de 4 digitos.
+As regexes são utilizadas frequentemente, tanto para extrair informações que seguem um padrão ou para realizar buscas mais flexíveis e parciais.
+Como exemplo, suponha o problema de extrair todas os strings que correspondem a um horario em um texto.
+A escrita de um horario segue uma estrutura padrão, HH:MM:SS onde HH delimita o horario, MM delimita os minutos e SS delimita os segundos.
+Sem ter que construir todas as possíveis combinações de horas que seguem esse formato, uma simples varredura de texto é incapaz de extrair essa informação.
+Esse problema pode ser resolvido tranquilamente usando regexes.
 
-A notacao de regexes pode variar dependendo da implementacao, porem seguindo o modelo Perl de regexes, a notacao ''[]'' indica um grupo de caracters que sao aceitos para aquela posicao de texto, [012] indica o conjunto de numeros {1,2,3} que deve ser aceito como correto.
-Em algumas situacoes, eh possivel indicar um intervalo de caracters, como foi feito acima.
-O grupo ''[0-9]'' aceita os numeros {0,1,2,3,4,6,7,8,9} como corretos para fins de procura, eh possivel tambem definir um conjunto de letras.
-O cojunto ''[a-z]'' aceita as letras de ''a'' ate ''z'', minusculas como corretas para o padrao.
-O caracter ''.'' eh definido como um caracter reservado em diversas implementacoes de regexes diferentes, ''.'' simboliza um grupo onde qualquer caracter eh aceito.
-% TODO: Add footnote about exceptions and flags?
+Uma expressão regular que pode ser utilizada para resolver esse problema é,
+\begin{equation}
+  [0-9]{2}:[0-9]{2}:[0-9]{2} .
+\end{equation}
 
-Eh possivel enumerar o numero de vezes que um caracter, ou grupo de caracteres, podem aparecer em um regex, isso eh indicado pela notacao ''{}''.
-Ainda usando o exemplo de datas, o substring ''{2}'' indica que o caracter que antecede o enumerador sera repetido duas vezes.
-Note que para fins de processamento, um grupo eh considerado como um unico caracter pois somente um unico caracter ira dar match por vez, logo a regex ''[0-9]{2}'' ira dar match em qualquer dois digitos adjacentes.
-Enumeradores podem indicar um intervalo com comprimento unidade ou um intervalo arbitrario, como o enumerador {2,5}, que define um enumerador que aceita de 2 a 5 caracters.
-Eh possivel omitor o numero a direita ou esquerda da virgula para definir um intervalo flexivel, o intervalo {0,} aceita 0 ou qualquer numero de ocorrencias do grupo que o precede.
-Alguns caracteres sao reservados para indicar intervalos especiais em regexes.
-O caracter ''?'' eh equivalente ao intervalo ''{0,1}'', ou seja, o grupo anterior pode ocorrer 0 ou 1 vezes, usado para indicar quando uma condicao eh opcional.
-Outro caracter especial eh ''?'' que indica o intervalo ''{1,}'', ou seja um ou mais caracters.
-Finalmente, o caracter ''*'' eh equivalente ao intervalo ''{0,}'' que aceita qualquer numero de ocorrencias do grupo a sua esquerda.
+Em palavras, os os símbolos [0-9] representa qualquer carácter numerico entre 0 e 9.
+O token {2} indica uma repetição, sendo equivalente à regex [0-9][0-9], ou seja dois carácteres numericos.
+O carácter : é interpretado como o símbolo dois pontos literal.
+Fazendo a união, a regex acima equivale a qualquer string que tenha o formato DD:DD:DD onde D indica qualquer digito de 0-9.
+Podemos ver que esse formato é exatamente o formato definido anteriormente.
 
-Essa eh uma breve introducao sobre expressoes regulares, existem diversos caracters especiais que podem ser usados para indicar posicoes no texto.
-Para uma referencia completa sobre as funcionalidades avancadas de expressoes regulares consulte \cite{python-re}, \cite{jeffrey}.
+É importante ressaltar que existem inumeras variações e implementações de regexes, onde existem diferentes meta-characteres para descrever operações.
+Em \cite{mastering}, o autor discute as diferenças em regex entre as linguagens: PHP, .NET, Java e Perl.
+Na documentação oficial da linguagem Python \cite{python-re} é dito que o dialeto usado é basedo nas expressões regulares da linguagem Perl com alguns adicionais.
+Usuários UNIX também estão familiarizados com os \emph{wildcards} presentes nos shells.
+Em resumo, existe uma grande de dialetos porém os o objetivo das regexes não se altera.
+A regex acima e todas as regexes subsequentes nesse texto serão escritos no dialeto da linguagem Perl. 
 
-% TODO: Adicionar texto explicativo para grupos, ou, lookaround
-% TODO: Citar referencia Python modulo re
 
 \subsubsection{Programacao Funcional}
 
