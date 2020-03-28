@@ -1,9 +1,8 @@
 \section{EXPRESSÕES REGULARES E PROGRAMAÇÃO FUNCIONAL}
 Como foi abordado na introdução, esse trabalho une dois temas: expressões regulares e programação funcional.
 Esses temas serão, primeiramente, discutidos separadamente, e em seguida será feito uma previa de como será feita a construção do motor de processamento de expressões regulares.
-\subsection{Expressão Regular}
 
-\subsubsection{Introdução as expressões regulares}
+\subsection{Introdução as expressões regulares}
 
 Expressões regulares, tambem conhecidas como \emph{regex} (da junção do nome em inglês, \emph{regular expression}) são utilizadas para realizar buscas complexas sobre strings.
 Para Cox,
@@ -89,85 +88,12 @@ Em seguida, iremos declarar a função que representa cada passo acima.
 5 - gerarCombinacoes :: ([String], [String]) -> [(String, String)]
 6 - concatenarNomes :: [(String, String)] -> [String]
 
+Segundo \cite{lipovaca} a assinatura de uma função em Haskell combinado com um nome descritivo diz muito sobre a função e de fato, dados os nomes e sua assinatura, pode-se facilmente deduzir o que cada função está fazendo.
+O objetivo dessa seção foi dar um exmplo alto nível de como é resolvido um problema de maneira funcional.
 
-O algoritimo de ordenação conhecido como \emph{merge sort} aplica o paradigma de dividir e conquistar.
-Segundo \cite{Cormen}, esse método consiste basicamente de quebrar o problema inicial em subproblemas menores, resolver os subproblemas recurssivamente e combinar essas soluções para resolver o problema original.
-Segundo \cite{Cormen}, podemos aplicar esse paradigma para resolver o problema de ordernar uma sequencia de $n$ elementos da seguinte maneira.
-\begin{cite}
-Dividir: Divida a sequencia a ser ordernada em duas sequencias com $n/2$ elementos em cada.
-Conquistar: Ordene as duas subsequencias de maneira recurssiva usando o \emph{merge sort}.
-Combinar: Combine as duas subsequencias ordernadas para resolver o problema.
-\end{cite}
 
-Dado essa sequencia de passos, podemos definir uma maneira funcional de resolver esse problema.
-Suponha uma função mergeSort que recebe uma lista (ordenada ou não) de valores como argumento e retorna essa mesma lista ordenada, por conveniência uma lista de valores será indicada pela notação [a].
-Segundo o algoritimo proposto, a função mergeSort divide a lista [a] em duas listas e às ordena, ou seja a função mergeSort chama ela própria (por isso recurssão).
-Então primeiramente, a lista [a] é transformada em duas listas.
-Pode-se definir uma condição de fronteira para o problema de ordenação em que uma lista com um único elemento é dita ordenada, apos terminar a recursão teremos n listas ordenadas.
-A proxima transformação é como combinar duas listas ordenadas a fim de produzir uma lista ordenada.
+\subsection{Algoritimos de regex}
 
-O problema de combinar duas listas ordenadas é por sua vez um diferente problema computacional.
-Suponha agora uma função mergeLists que recebe duas listas ordernas e retorna uma lista ordenada.
-Sabendo que ambas as lista são ordenadas, podemos identificar qual deve ser o primeiro elemento da união de listas, ou seja, qual o menor elemento de ambas as listas, remover esse elemento da lista correspondente e em seguida, criar uma nova lista com esse elemento como primeiro e concatenar a essas lista o retorno da função mergeLists nas duas listas depois de alteração.
-A aplição recursiva da função mergeList irá sempre identificar o menor elemento das duas listas, extrair esse elemento e aplicar ela mesma nas listas resultantes.
-Esse procedimento se repete até que uma das listas esteja vazia, pois nesse momento teremos uma lista ordenada devido a condição inicial do mergeLists.
-
-%%%%%%%%%%%%%%BREAK
-
-Embora existam varias linguagens funcionais (ML, Lisp, Rackett, Haskell), todas elas compartilham essa origem.
-
-Tal como em programacao imperativa que diferencia linguagens entre procedural e orientada a objetos, existem diferencas entre as linguagens funcionais, mas primeiramente, o que eh programacao funcional.
-
-Esse trabalho foca na linguagem Haskell como fonte de exemplos para o paradigma funcional.
-Haskell, como toda linguagem, possui suas proprias particularidades, porem grande partes dos conceitos apresentados sera geral para linguagens funcionais.
-
-Haskell faz parte do conjunto de linguagens conhecidas como "linguagens funcionais puras".
-Uma linguagem pura permite a \emph{definicao} de simbolos uma unica vez, exemplo, ao definir "let a = 4" em um programa, tentar mudar o valor da variavel "a" resulta em um error.
-O valor de um simbolo nao pode mudar durante a execucao do programa, de certa forma isso eh equivalente as keywords "final" do java e "const" da linguagem C.
-Embora nao poder atualizar o valor de uma variavel soe como uma grande desvantagem, isso permite o que pode ser chamado de "funcoes sem efeito-colateral".
-Isso significa que uma funcao jamais ira alterar o estado do programa fora dela, toda vez que uma funcao for chamada com os mesmos atributos, ela ira retornar o mesmo valor, isso nao eh o caso em linguagens orientadas a objeto, por exemplo, onde metodos alteram o estado do objeto (setters).
-O conceito de funcoes sem efeito colateral eh uma vantagem pois isso facilita o entendimento do programador sobre a sequencia de eventos do programa, nao existe preucupacao de que uma funcao altere alguma variavel global ou o estado de um objeto.
-Lipovaca expressa o conceito de linguagem funcional pura de maneira instrutiva, ele diz que:
-"Embora isso parece limitante quando voce esta vindo do mundo imperativo, nos vimos que isso eh algo realmente legal. Em uma linguagem imperativa voce nao tem garantia de que uma simples funcao que deveria somente processar alguns numeros nao ira queimar sua casa, sequestrar seu cachorro e riscar seu carro com uma batata enquanto processa aqueles numeros.".
-
-Como nao podemos alterar o estado de uma variavel em um programa funcional, isso nos forca a procurar diferentes maneiras de resolver problemas computacionais.
-Um exemplo classico disso eh o problema de calcular o fatorial de um numero.
-O fatorial de n (n!) eh definido como $ n! = (1)*(2)*...*(n-1)*(n)$.
-Em uma linguagem imperativa, esse problema pode ser resolvido com um for, uma variavel acumuladora e uma variavel contadora; como nao podemos mutar o valor de definicoes em linguagens funcionais, podemos fazer usso de recurssao.
-
-O programa abaixo define uma funcao "factorial" que recebe um valor do tipo int retorna um de valor int.
-A funcao "factorial" retorna o valor 1 quando seu argumento eh 0 e retorna o valor n * (n-1)! para qualquer outro valor.
-Essas curiosa sintaxe faz uso de um construtor muti util do Haskell chamado de \emph{patten matching}.
-Segundo \ref{lipovaca}, "pattern matching consiste de especificar padroes para o qual algum dado deve tomar forma, verificar se o dado acorda com esses padroes", eh possivel definir varios padroes para uma unica funcao.
-Padroes sao executados de cima para baixo e por isso padroes mais gerais (dao match em um maior numero de situacoes) devem ser posicionados por ultimo.
-
-factorial :: Int -> Int
-factorial 1 = 1
-factorial n = n * factorial (n-1)
-
-Tipos de dados diferentes possuem diferentes possibilidades de pattern matching.
-Em Haskell, valores contidos dentro de colchetes "[]" define uma lista, e o padrao (x:xs) define que x eh o primeiro elemento da lista e xs o restante da lista.
-Por exemplo, dado a lista [1,2,3] os valores de (x:xs) em um pattern matching tera o valor de x = 1 e xs = [2,3].
-Usando esse construtor, podemos definir a funcao sum que soma todos os numero em uma lista.
-
-sum :: [Int] -> Int
-sum [] = 0
-sum (x:xs) = x + sum xs
-
-O codigo acima define uma funcao sum que recebe uma lista de ints ("[Int]") e retorna um int, a funcao sum faz uso de dois pattern matchings.
-O primeiro padrao "[]" faz match com uma lista vazia, o valor da funcao sum para a lista vazia eh definido como o valor 0.
-Caso a lista nao seja vazia, o segundo padrao eh executado, e para aquele caso a soma de uma lista eh definida como o primeiro elemento mais a soma do restante da lista.
-Novamente, isso eh uma funcao que faz uso de recursao para resolver o problema computacional.
-A funcao sum chama a ela mesma ate o valor de xs ser a lista vazia, para o qual definimos que isso seria igual a $0$.
-Caso omitissimos o primeiro padrao, a funcao iria chamar a ela mesma indefinitvamente.
-Pattern matching eh muito util em funcoes recursivas pois nos permite definir a condicao de saida da recurssao.
-
-\subsubsection{Algoritimos de regex}
-
-Nessa secao sera abordado um pouco sobre maquinas de estado, como elas podem ser usadas para representar expressoes regulares.
-Talvez abordar a diferenca entre maquinas deterministicas e nao deterministicas, e como uma maquina nao deterministica pode ser transformada em deterministica.
-
-Ainda estou em duvida qual algoritimo sera utilizado para a construcao da biblioteca, irei pesquisar mais sobre isso.
 
 \subsection{METODOLOGIA}
 
