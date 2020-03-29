@@ -91,19 +91,32 @@ Em seguida, iremos declarar a função que representa cada passo acima.
 Segundo \cite{lipovaca} a assinatura de uma função em Haskell combinado com um nome descritivo diz muito sobre a função e de fato, dados os nomes e sua assinatura, pode-se facilmente deduzir o que cada função está fazendo.
 O objetivo dessa seção foi dar um exmplo alto nível de como é resolvido um problema de maneira funcional.
 
+\subsection{Automatas e expressões regulares}
 
-\subsection{Algoritimos de regex}
+Como visto, as expressões regulares representam uma maneira conveniente de descrever conjutos de string.
+Embora conveniente, da maneira que as expressões regulares foram introduzidas não permite uma implementação direta delas em um ambiente computacional.
+Essa seção faz a ligação entre esses objetos teóricos e uma descrição matématica das mesmas.
 
+\subsubsection{Definição de uma automata}
 
-\subsection{METODOLOGIA}
+Segundo \cite{comp}, as automatas modelam um computador com uma quantidade minuscula de memória.
+A ideia central de uma automata é representar uma estrutura computacional a partir de um conjunto de estados e entradas.
 
-Utilizando os algoritimos abordados na secao de algoritimos, sera criado um modulo escrito funcionalmente em Haskell para realizar a pesquisa de regexes em um texto.
+Os estados da automata constitui um conjunto denominado de $Q$, o conjunto de estados.
+Dentre esses estados existe um único estado inicial da automata chamado de $q_p \in Q$.
+Automatas recebem entradas a partir de simbolos, o conjuto de todos os símbolos reconhecidos por uma automata constroi um conjunto $\Sigma$ chamado do alfabeto da automata.
+Os estados da automata podem ou não estar conectados, quando existe uma conexão entre dois estados essa conexão é representada por um simbolo.
+As transições entre estados de uma automata é representado por uma função $\delta$ onde $\delta : Q X \Sigma \mapsto Q$, ou seja $\delta$ recebe dois argumentos, um estado e um símbolo e mapeia esse par a um estado.
+Finalmente, a automata possui um conjunto de estados de aceitação $F$, onde $F \in Q$, caso a automata termine sua execução em um estado $q \in F$, o string de entrada foi aceito pela automata.
+Formalmente, então, uma automata é uma tupla com 5 elementos $(Q, \Sigma, \delta, q_o, F)$ \cite{comp}.
 
-Tenho duvida a respieto dessa secao. O que faz parte do escopo de metodologia?
-Praticas de desenvolvimento aplicadas como testes unitarios?
+A partir da descrição formal de uma automata, podemos definir uma rotina de computação.
+De maneira breve, o objetivo dessa rotina é verificar se após processar a entrada, a automata se encontra em um estado de aceitação.
 
-Acredito que a maior parte do conteudo abordado aqui seja estabelecido apos a escolha do algoritmo(s) de regex a serem implementados.
+Como foi visto, uma automata recebe um conjunto de entradas que define seu alfabeto $\Sigma$.
+Deseja-se definir um procedimento onde dado um string de entrada $w$ cujo todos elementos $w_i \in \Sigma$ e uma automata $M$ no seu estado inicial, se após ler todos os elementos $w_i$ de $w$ a automata está em um estado $q \in F$, ou seja um estado de aceitação.
+Caso essa proposição seja verdadeira, é dito que $M$ aceita $w$ \cite{comp}.
+Formalmente, segundo \cite{comp} $M$ aceita $w = w_1w_2...w_3$ se: existe uma sequencia de estados $r_0, r_1, ... r_n \in Q$ se $r_0 = q_0$; $\delta(r_i, w_{i+1}) = r_{i+1},$ para $i = 0, ..., n-1$; $r_n \in F$.
 
-A definicao do dialeto da regex, junto dos simbolos especiais, flags e etc deve ser feita nessa secao ou na fundamentacao teorica?
-
-
+O ponto chave desse discussão é apresentado por \cite{comp}, onde foi provado que é possível construir uma automata para qualquer expressão regular.
+Sendo assim, é possível definir padrões de busca usando uma expressão regular, converter essa expressão regulara para uma automata e usar essa automata para realizar a busca pelo padrão em um string.

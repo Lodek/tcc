@@ -1,0 +1,17 @@
+* intro
+- expose functional programming
+- functional programming paradigm
+- using haskell to build a regular expression matcher
+- why? functional paradigm can change the way one thinks
+* literature review
+- automatas
+- regex as automata
+- functional programming
+- characteristics
+- haskell
+* methods
+- plan application architecture and modules
+- initial outline of automata, automata computing, buidling an automata from a regex, parsing a string into a regex
+- solving the problem functionally and proceduraly, comparing and commentating 
+- comment on different functional programming techniques
+* conclusion
