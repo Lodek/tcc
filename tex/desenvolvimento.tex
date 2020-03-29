@@ -112,7 +112,7 @@ Os estados da automata constitui um conjunto denominado de $Q$, o conjunto de es
 Dentre esses estados existe um único estado inicial da automata chamado de $q_o \in Q$.
 Automatas recebem entradas a partir de simbolos, o conjuto de todos os símbolos reconhecidos por uma automata define um conjunto $\Sigma$ chamado de alfabeto da automata.
 Os estados da automata podem ou não estar conectados, quando existe uma conexão entre dois estados essa conexão é representada por um simbolo $\alpha \in \Sigma$.
-As transições entre estados de uma automata é representado por uma função $\delta$ onde $\delta : Q \cross \Sigma \mapsto Q$, ou seja $\delta$ recebe dois argumentos, um estado e um símbolo e mapeia esse par a um estado.
+As transições entre estados de uma automata é representado por uma função $\delta$ onde $\delta : Q \times \Sigma \mapsto Q$, ou seja $\delta$ recebe dois argumentos, um estado e um símbolo e mapeia esse par a um estado.
 Finalmente, a automata possui um conjunto de estados de aceitação $F$, onde $F \in Q$, caso a automata termine sua execução em um estado $q \in F$, o string de entrada foi aceito pela automata.
 Formalmente, então, uma automata é uma tupla com 5 elementos $(Q, \Sigma, \delta, q_o, F)$ \cite{comp}.
 
@@ -121,7 +121,7 @@ De maneira breve, o objetivo dessa rotina é verificar que após processar o str
 
 Como foi visto, uma automata pode receber um conjunto de entradas que definem seu alfabeto $\Sigma$.
 Deseja-se definir um procedimento onde dado um string de entrada e uma automata no seu estado inicial, retorne o estado final após processar a entrada.
-Esse procedimento é definido como dado uma entrada $w=w_1w_2...w_n \suchthat w_i \in \Sigma$ e uma automata $M$ no seu estado inicial, será retornado um estado $q \in Q$.
+Esse procedimento é definido como dado uma entrada $w=w_1w_2...w_n \mid w_i \in \Sigma$ e uma automata $M$ no seu estado inicial, será retornado um estado $q \in Q$.
 Caso o estado final seja um estado de aceitação ($q \in F$), é dito que $M$ aceita $w$ \cite{comp}.
 Formalmente, segundo \cite{comp} $M$ aceita $w = w_1w_2...w_n$ se: existe uma sequencia de estados $r_0, r_1, ... r_n \in Q$ se $r_0 = q_0$; $\delta(r_i, w_{i+1}) = r_{i+1},$ para $i = 0, ..., n-1$; $r_n \in F$.
 
