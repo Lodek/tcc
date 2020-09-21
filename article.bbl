@@ -1,0 +1,287 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{Bird}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=403b4907baa5497770e9637cf90b66a5}{%
+           family={Bird},
+           familyi={B\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{403b4907baa5497770e9637cf90b66a5}
+      \strng{fullhash}{403b4907baa5497770e9637cf90b66a5}
+      \strng{bibnamehash}{403b4907baa5497770e9637cf90b66a5}
+      \strng{authorbibnamehash}{403b4907baa5497770e9637cf90b66a5}
+      \strng{authornamehash}{403b4907baa5497770e9637cf90b66a5}
+      \strng{authorfullhash}{403b4907baa5497770e9637cf90b66a5}
+      \field{sortinit}{B}
+      \field{sortinithash}{8de16967003c7207dae369d874f1456e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Thinking functionally with Haskell}
+      \field{year}{2016}
+    \endentry
+    \entry{cox}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d02ba631c0c7595e1f0ca78d980ee917}{%
+           family={Cox},
+           familyi={C\bibinitperiod},
+           given={Russ},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Russ Cox}%
+      }
+      \strng{namehash}{d02ba631c0c7595e1f0ca78d980ee917}
+      \strng{fullhash}{d02ba631c0c7595e1f0ca78d980ee917}
+      \strng{bibnamehash}{d02ba631c0c7595e1f0ca78d980ee917}
+      \strng{authorbibnamehash}{d02ba631c0c7595e1f0ca78d980ee917}
+      \strng{authornamehash}{d02ba631c0c7595e1f0ca78d980ee917}
+      \strng{authorfullhash}{d02ba631c0c7595e1f0ca78d980ee917}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Regular Expression Matching Can Be Simple And Fast}
+      \field{month}{1}
+      \field{title}{Regular Expression Matching Can Be Simple And Fast (but is slow in Java, Perl, PHP, Python, Ruby, ...)}
+      \field{year}{2007}
+      \verb{urlraw}
+      \verb https://swtch.com/~rsc/regexp/regexp1.html
+      \endverb
+      \verb{url}
+      \verb https://swtch.com/~rsc/regexp/regexp1.html
+      \endverb
+    \endentry
+    \entry{mastering}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=a3725a42aaa449f40333c415d4559b65}{%
+           family={Friedl},
+           familyi={F\bibinitperiod},
+           given={Jeffrey\bibnamedelimb E.\bibnamedelimi F.},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {OReilly}%
+      }
+      \strng{namehash}{a3725a42aaa449f40333c415d4559b65}
+      \strng{fullhash}{a3725a42aaa449f40333c415d4559b65}
+      \strng{bibnamehash}{a3725a42aaa449f40333c415d4559b65}
+      \strng{authorbibnamehash}{a3725a42aaa449f40333c415d4559b65}
+      \strng{authornamehash}{a3725a42aaa449f40333c415d4559b65}
+      \strng{authorfullhash}{a3725a42aaa449f40333c415d4559b65}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Mastering regular expressions}
+      \field{year}{2009}
+    \endentry
+    \entry{matrix}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=273c08956334f2b17010bdfd364fc594}{%
+           family={Klein},
+           familyi={K\bibinitperiod},
+           given={Philip\bibnamedelima N.},
+           giveni={P\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Newtonian Press}%
+      }
+      \strng{namehash}{273c08956334f2b17010bdfd364fc594}
+      \strng{fullhash}{273c08956334f2b17010bdfd364fc594}
+      \strng{bibnamehash}{273c08956334f2b17010bdfd364fc594}
+      \strng{authorbibnamehash}{273c08956334f2b17010bdfd364fc594}
+      \strng{authornamehash}{273c08956334f2b17010bdfd364fc594}
+      \strng{authorfullhash}{273c08956334f2b17010bdfd364fc594}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Coding the matrix: linear algebra through applications to computer science}
+      \field{year}{2015}
+    \endentry
+    \entry{lipovaca}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=fe6feac648cd556efee9ffc95b27f951}{%
+           family={Miran},
+           familyi={M\bibinitperiod},
+           given={Lipovača},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {No Starch Press}%
+      }
+      \strng{namehash}{fe6feac648cd556efee9ffc95b27f951}
+      \strng{fullhash}{fe6feac648cd556efee9ffc95b27f951}
+      \strng{bibnamehash}{fe6feac648cd556efee9ffc95b27f951}
+      \strng{authorbibnamehash}{fe6feac648cd556efee9ffc95b27f951}
+      \strng{authornamehash}{fe6feac648cd556efee9ffc95b27f951}
+      \strng{authorfullhash}{fe6feac648cd556efee9ffc95b27f951}
+      \field{sortinit}{M}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Learn you a Haskell for great good!: a beginners guide}
+      \field{year}{2012}
+    \endentry
+    \entry{java8}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=30162ed78b6c10f731411f2fc440c24f}{%
+           family={Oracle},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Oracle}%
+      }
+      \strng{namehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{fullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{bibnamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authorbibnamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authornamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authorfullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \field{sortinit}{O}
+      \field{sortinithash}{ff8d4eeb5101e3cf3809959b3592d942}
+      \field{labeldatesource}{nodate}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{What's New in JDK 8}
+      \verb{urlraw}
+      \verb https://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
+      \endverb
+      \verb{url}
+      \verb https://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
+      \endverb
+    \endentry
+    \entry{python-re}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=c7b5508dc5e59a2846d22617276cc27c}{%
+           family={Python},
+           familyi={P\bibinitperiod},
+           given={Software\bibnamedelima Foundation},
+           giveni={S\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Software Foundation Python}%
+      }
+      \strng{namehash}{c7b5508dc5e59a2846d22617276cc27c}
+      \strng{fullhash}{c7b5508dc5e59a2846d22617276cc27c}
+      \strng{bibnamehash}{c7b5508dc5e59a2846d22617276cc27c}
+      \strng{authorbibnamehash}{c7b5508dc5e59a2846d22617276cc27c}
+      \strng{authornamehash}{c7b5508dc5e59a2846d22617276cc27c}
+      \strng{authorfullhash}{c7b5508dc5e59a2846d22617276cc27c}
+      \field{sortinit}{P}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labeldatesource}{nodate}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{6.2. re - Regular expression operations - Python 3.5.9 documentation}
+      \field{title}{6.2. re - Regular expression operations¶}
+      \verb{urlraw}
+      \verb https://docs.python.org/3.5/library/re.html
+      \endverb
+      \verb{url}
+      \verb https://docs.python.org/3.5/library/re.html
+      \endverb
+    \endentry
+    \entry{comp}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=13b9c16a9de2bb891eb8aa2a768eb2a8}{%
+           family={Sipser},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Course Technology Cengage Learning}%
+      }
+      \strng{namehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{fullhash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{bibnamehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{authorbibnamehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{authornamehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{authorfullhash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Introduction to the theory of computation}
+      \field{year}{2013}
+    \endentry
+    \entry{stack-overflow}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=84d7dc19766c446f5e4084e8fce87f82}{%
+           family={Stack},
+           familyi={S\bibinitperiod},
+           given={Overflow},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Stack Overflow}%
+      }
+      \strng{namehash}{84d7dc19766c446f5e4084e8fce87f82}
+      \strng{fullhash}{84d7dc19766c446f5e4084e8fce87f82}
+      \strng{bibnamehash}{84d7dc19766c446f5e4084e8fce87f82}
+      \strng{authorbibnamehash}{84d7dc19766c446f5e4084e8fce87f82}
+      \strng{authornamehash}{84d7dc19766c446f5e4084e8fce87f82}
+      \strng{authorfullhash}{84d7dc19766c446f5e4084e8fce87f82}
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{labeldatesource}{nodate}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Stack Overflow}
+      \field{title}{Stack Overflow Developer Survey 2019}
+      \verb{urlraw}
+      \verb https://insights.stackoverflow.com/survey/2019
+      \endverb
+      \verb{url}
+      \verb https://insights.stackoverflow.com/survey/2019
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
