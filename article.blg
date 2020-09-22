@@ -1,19 +1,22 @@
-[0] Config.pm:304> INFO - This is Biber 2.13
-[0] Config.pm:307> INFO - Logfile is 'article.blg'
-[35] biber:315> INFO - === Sun Mar 29, 2020, 18:08:17
-[51] Biber.pm:375> INFO - Reading 'article.bcf'
-[144] Biber.pm:905> INFO - Found 9 citekeys in bib section 0
-[165] Biber.pm:4196> INFO - Processing section 0
-[165] Utils.pm:75> INFO - Globbing data source 'refs.bib'
-[166] Utils.pm:91> INFO - Globbed data source 'refs.bib' to refs.bib
-[177] Biber.pm:4373> INFO - Looking for bibtex format file 'refs.bib' for section 0
-[178] bibtex.pm:1462> INFO - LaTeX decoding ...
-[189] bibtex.pm:1281> INFO - Found BibTeX data source 'refs.bib'
-[204] Utils.pm:300> WARN - month field 'Jan' in entry 'cox' is not an integer - this will probably not sort properly.
-[254] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
-[254] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[254] Biber.pm:4024> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'pt-BR'
-[254] Biber.pm:4030> INFO - No sort tailoring available for locale 'pt-BR'
-[270] bbl.pm:648> INFO - Writing 'article.bbl' with encoding 'UTF-8'
-[275] bbl.pm:751> INFO - Output to article.bbl
-[275] Biber.pm:110> INFO - WARNINGS: 1
+[0] Config.pm:304> INFO - This is Biber 2.14
+[1] Config.pm:307> INFO - Logfile is 'article.blg'
+[131] biber:322> INFO - === Mon Sep 21, 2020, 19:53:01
+[153] Biber.pm:415> INFO - Reading 'article.bcf'
+[254] Biber.pm:943> INFO - Found 12 citekeys in bib section 0
+[277] Biber.pm:4256> INFO - Processing section 0
+[277] Utils.pm:75> INFO - Globbing data source 'refs.bib'
+[278] Utils.pm:91> INFO - Globbed data source 'refs.bib' to refs.bib
+[292] Biber.pm:4455> INFO - Looking for bibtex format file 'refs.bib' for section 0
+[293] bibtex.pm:1653> INFO - LaTeX decoding ...
+[305] bibtex.pm:1471> INFO - Found BibTeX data source 'refs.bib'
+[356] Utils.pm:304> WARN - month field 'Jan' in entry 'cox' is not an integer - this will probably not sort properly.
+[384] Utils.pm:304> WARN - I didn't find a database entry for 'theory-computation' (section 0)
+[384] Utils.pm:304> WARN - I didn't find a database entry for 'theory' (section 0)
+[384] Utils.pm:304> WARN - I didn't find a database entry for 'dragon-book' (section 0)
+[413] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[413] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[413] Biber.pm:4084> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'pt-BR'
+[414] Biber.pm:4090> INFO - No sort tailoring available for locale 'pt-BR'
+[433] bbl.pm:652> INFO - Writing 'article.bbl' with encoding 'UTF-8'
+[438] bbl.pm:755> INFO - Output to article.bbl
+[438] Biber.pm:128> INFO - WARNINGS: 4
