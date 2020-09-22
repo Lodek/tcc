@@ -162,34 +162,6 @@
       \field{title}{Learn you a Haskell for great good!: a beginners guide}
       \field{year}{2012}
     \endentry
-    \entry{java8}{misc}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=30162ed78b6c10f731411f2fc440c24f}{%
-           family={Oracle},
-           familyi={O\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Oracle}%
-      }
-      \strng{namehash}{30162ed78b6c10f731411f2fc440c24f}
-      \strng{fullhash}{30162ed78b6c10f731411f2fc440c24f}
-      \strng{bibnamehash}{30162ed78b6c10f731411f2fc440c24f}
-      \strng{authorbibnamehash}{30162ed78b6c10f731411f2fc440c24f}
-      \strng{authornamehash}{30162ed78b6c10f731411f2fc440c24f}
-      \strng{authorfullhash}{30162ed78b6c10f731411f2fc440c24f}
-      \field{sortinit}{O}
-      \field{sortinithash}{ff8d4eeb5101e3cf3809959b3592d942}
-      \field{labeldatesource}{nodate}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{What's New in JDK 8}
-      \verb{urlraw}
-      \verb https://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
-      \endverb
-      \verb{url}
-      \verb https://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
-      \endverb
-    \endentry
     \entry{python-re}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=c7b5508dc5e59a2846d22617276cc27c}{%
