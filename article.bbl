@@ -255,8 +255,12 @@
     \endentry
   \enddatalist
   \missing{dragon-book}
+  \missing{graham}
+  \missing{haskell-ivory}
+  \missing{rust}
   \missing{theory}
   \missing{theory-computation}
+  \missing{whyfpm}
 \endrefsection
 \endinput
 

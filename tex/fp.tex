@@ -50,10 +50,55 @@ A recursão é extremamente utilizada na programação funcional pois ela permit
 
 \subsubsection{Funções como um cidadão de primeira classe}
 
+Na programação, os tipos primitivos de uma linguagem são os blocos a partir do qual é possível construir estruturas complexas.
+Os tipos primitivos podem ser armazenados em uma variável, passados para uma função, e normalmente existem operadores que opera sobre esses tipos.
+Para a programação funcional, uma função é um tipo de dado primitivo, isso significa que é possível declarar e armazenar uma função em uma variavel, passar uma função para uma função e receber uma função como retorna de uma função.
+
+Na programação funcional, usar uma função como um tipo de dado é uma pratica essencial para criar abstrações.
+Uma função que recebe uma função como argumento é chamada de função de ordem superior.
+Hughes \cite{whyfpm} argumenta que a funções de ordem superior são essencial pois elas permitem uma melhor reusabilidade de código.
+Essa pratica é tão comum e poderoza que diversas linguagens populares, tal como JavaScript e Python, possuem esses tipos de função no seu core, tais como as funções: map, filter e reduce.
+%In video, explain what each functino does
+
+E de fato, um exemplo de uma abstração muito poderoza é a função reduce, ou como é chamada em Haskell, fold.
+Essa função é normalmente utilizada para iterar sobre uma lista de valores e produzir um novo valor.
+Porém, essa abstração em especifico é extremamente poderoza, em \cite{graham} o autor argumenta a favor de sua expressividade.
+
+As três funções mencionadas são exemplos de funções de ordem superior reutilizaveis e expressivas.
+É interessante notar que uma função de ordem superior, muitas vezes, pode ser extendida para aceitar diferentes tipos.
+Em Haskell, existe varios tipos de dados que aceitam a função fold, não so listas, e em \cite{whyfpm} é argumentado que cada tipo de dados definida deve tambem implementar funções de ordem superior para operar sobre essa estrutura.
+
+%For video, talk about functions that return functions
+%Adding behavior before/after method, python decorators and aspects
+
+Em conclusão, funções como um cidadão de primeira classe permite tratar funções como valores e realizar tranformações sobre elas de maneira transparente.
+Esse conceito permite que funções de ordem superior existam na linguagem e foi argumentado a favor do poder de abstração dessa prática.
+
 \subsubsection{Indo além}
 
-\subsubsection{Observações sobre diferentes linguagens}
+Existem vários outros importantes conceitos sobre programação funcional, porém por motivos de breviedade eles não serão comentados nesse artigo mas sim, mencionados e direcionados para outras literaturas.
 
-\subsubsection{Funções para resolver problemas}
+Um tópico polarizador em programação funcional é o assunto de \emph{laziness} e \emph{eager}, referindo a quando um valor será computado.
+Existem vantagens e desvantagens para ambos; laziness é interessante por melhor performance em alguns casos, porém dificulta raciocinar sobre o programa.
+É importante mencionar que em \cite{whyfpm}, o autor argumenta que laziness é fundamental para abstrair programas funcionais.
+
+Outro ponto importante é sobre tipos de dados algebricos.
+Tipos de dados algebricos permitem a implementação de tipos de dados recurssivos.
+Em Haskell, uma lista é um tipo de dado recurssivo, com dois construtores.
+Tipos de dados algebricos possibilitam \emph{pattern matching}, uma maneira sucinta de verificar a estrutura de um dado.
+Uma boa introdução pode ser encontrada em \cite{lipovaca} e \cite{rust}.
+
+Por último, é importante mencionar alguns assuntos que surgiram no Haskell, dentre eles type classes e monads.
+Type classes foi a solução implementada em Haskell para um problema muito comum em linguagens de programação: override operadores \cite{haskell-ivory}.
+Monads é praticamente uma buzz-word em programação funcional, especialmente na comunidade Haskell.
+Sobre monads, é interessante mencionar que eles foram a solução para um grande problema que Haskell teve: como ser uma linguagem pura porém com efeitos colaterais \cite{haskell-ivory}.
+
+\subsubsection{Conclusão}
+
+Programação funcional é um tópico extenso com uma historia rica e de maneira nenhuma seria introduzir tudo sobre nesse artigo.
+Foi visto como as origens das linguagens funcionais diferem das linguagens imperativas, sendo baseadas no calculo lambda.
+Em seguida foi introduzido dois conceitos importantes: imutabilidade e função como um cidadão de primeira classe.
+Foi argumentado a favor da modularidade e abstração que esses conceitos introduzem.
+Por fim, foram comentado sobre diferentes conceitos importantes para as linguagens funcionais, porém que fogem do escopo desse trabalho.
 
 \input{tex/metodologia}
