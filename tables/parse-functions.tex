@@ -1,0 +1,24 @@
+\begin{table}
+  \begin{tabular}{lll}
+  \hline
+  Nome & Assinatura & Descrição \\
+  \hline
+  genToken & Symbol -> Token & Transforma um símbolo em um token. \\
+  genTokens & [Symbol] -> [Token] & Transforma uma lista de símbolos em uma lista de tokens. \\
+  normalizeStream & [Token] -> [Token] & Adiciona operador de concatenação entre símbolos justapostos. \\
+  evenGroupPredicate & [Token] -> Bool & Valida que existe numero par de parenteses em uma regex. \\
+  uniqueQuantifierPredicate & [Token] -> Bool & Valida que não existem quantificadores justapostos. \\
+  yankSubExp & [Token] -> (SubExpression, [Token]) & Extrai uma subexpressão do stream de tokens. \\
+  takeWhileGroupUneven & [Token] -> [Token] & Remove tokens até que um grupo completo seja formado. \\
+  takeWhileList & ([Token], Bool) -> [Token] -> [Token] -> [Token] & Remove items da primeira lista e adiciona a segunda enquanto o predicado é verdadeiro.\\
+  validateTokens  & [Token] -> Bool & Valida tokens \\
+  sortAndTreefy & [Token] -> [Either Operator ParseTree] & Classifica Token como sendo um Operador ou uma árvore. \\
+  buildSupExp & SubExpression -> ParseTree & Transforma uma subexpressão em uma arvore. \\
+  transformEithers & [Either Operator ParseTree] -> ([Operator], [ParseTree]) & Agrupa operadores e árvores. \\
+  mergeOps & [Operator] -> [ParseTree] -> [ParseTree] & Combina árvores usando uma lista de operadores. \\
+  buildTree & String -> ParseTree & Transforma um string em uma árvore. \\
+ \hline
+  \end{tabular}
+\caption{Tabela de funções para o modulo de parse. Cada função é apresentada com sua assinatura e uma breve descrição.}
+\label{t-parse-funcs}
+\end{table}
