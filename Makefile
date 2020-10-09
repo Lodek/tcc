@@ -7,4 +7,4 @@ article.pdf: ${files}
 	pdflatex article.tex
 
 clean:
-	rm *.log *.bcf *.aux *.bbl *.blg *.run.xml *.bbl *.blg
+	rm *.log *.bcf *.aux *.bbl *.blg *.run.xml
