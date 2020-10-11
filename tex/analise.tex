@@ -25,11 +25,16 @@ A função de união itera sobre os operadores e usa como acumulador a lista de 
 Para cada operador, as duas primeiras árvores são consumidas e o novo acumulador é uma nova lista onde a árvore resultante é o primeiro elemento, concatenado aos elemntos restantes da lista original.
 No final da execução o acumulador é uma lista com um unico elemento, a árvore final.
 
+A implementacao do modulo de parse foi a parte mais desafiadora do ponto de vista tecnico.
+Os algoritimos bem documentados para parse de um stream de caracteres sao imperativos e nao possuem uma traducao direta para funcoes devido a mutacao.
+Existem alternativas mais apropriadas para escrever um parser em Haskell que faz uso de Monads.
+Essa metodologia nao foi escolhida pois monads são um tópico avançado e não alinhariam com a proposta educativa do trabalho.
+
 \subsection{Modulo de Automatas}
 O modulo de automata implementa algoritimos que permite a simulação de uma automata.
 
 Seguindo a literatura, uma das funções usadas para simular uma automata deve receber um conjunto de estados e retornar um conjunto de todos os estados acessiveis usando uma transição nula, a função "epsilon closure".
-A soluçã̀o desse problema imperativamente faz uso de uma estrutura de repetição, uma lista de resultados a ser visitados, e uma lista de estados visitados.
+A solução desse problema imperativamente faz uso de uma estrutura de repetição, uma lista de resultados a ser visitados, e uma lista de estados visitados.
 Para cada estado a ser visitado, adicione-o a lista de estado visitados e teste quais estados são acessíveis a partir dele, para cada estado acessível, cheque se ele está na lista de estados visitados, caso não, adicione-os á lista de resultados a ser visitados; esse procedimento é repetido até a lista de estados para visitar ficar vazia.
 
 Uma alternativa funcional desse problema é interessante pois demonstra uma solução inusitada, que faz uso de operações de conjunto.
@@ -38,52 +43,54 @@ Assim, verifica-se todos os estados acessiveis a partir dos estados de entrada, 
 O conjunto de estados a ser visitado passa a ser a diferença do conjunto de estados visitado e o conjunto temporario.
 O conjunto de estado visitados passa a ser a união do conjunto original com o conjunto temporario.
 A função que gera o conjunto de estados acessível é recursiva e se repete até que os estados a serem visitados forma o conjunto vazio.
+A alternativa funcional para a função \emph{epislon closure} é interessante pois mostra que, por mais que mutação de valores seja uma prática intuitiva para o desenvolvedor experiente, muitas vezes existem alternativas que podem ser mais breves e mais elegantes.
 
-A partir da função acima, o resto da implementação da automata é trivial pois as funções da literatura podem ser facilmente traduzidas de maneira funcional.
+A partir da função acima, o resto da implementação da automata é trivial pois as funções da literatura podem ser facilmente traduzidas para o paradigma funcional.
 
 \subsection{Modulo de conversão}
 O módulo de conversão é responsável por transformar uma árvore de parse em uma automata.
 
 O "cerébro" da automata é dada pela função de transferencia, que retorna as possíveis transições para um estado da automata.
 Como foi visto, a construção da autmoata é feita de maneira incremental, onde automatas mais complexas são construidas a partir de um conjunto finito de estruturas bases.
-Para combinar as funçõ̀es de transição foram definidas funções que recebem duas funções de transiçao e retornam uma nova função de transição.
+Para combinar as funções de transição foram definidas funções que recebem duas funções de transiçao e retornam uma nova função de transição.
 Esse uso é um exemplo de uma função de ordem superior.
 
 Como funções são cidadoes de primeira classe em Haskell, pode-se passar funções para funções de maneira transparente.
 Isso faz com que combinar funções seja feito de maneira trivial, usando uma função lambda como o retorno das funções de combinação.
 
-A partir das fábricas para as operações primitivas, basta converter os nós e as folhas da árvore em automatas.
-Novamente, podemos ver um caso de uso para um fold, visto que deseja-se iterar sobre a árvore de parse e usar um único valor como resultado dessa iteração.
+Para construir a automata final, basta converter os nós e as folhas da árvore em automatas, fazendo o uso das funções fábricas para gerar as funções de transição intermediarias.
+A conversão da árvore para uma automata é mais um caso de uso para um fold, visto que deseja-se iterar sobre a árvore de parse, um tipo de dado multi-valor, e gerar um único valor a partir dela.
 
-Os desafios impostos pela implementação do modulo de conversão foram ideiais para programação funcional.
-O problema de combinar funções é feito de maneira clara e concisa devido a natureza do paradigma funcional.
-O uso de um fold e pattern matching permite identificar qual tipo de automata deve ser construída para diferentes árvores seja feita de maneira idiomatica.
+Visto que grande parte do trabalho do modulo de conversão involve a manipulação de funçõese, é notavel que os desafios impostos pela implementação desse modulo fazem bom uso das ferramentas da programação funcional.
+O problema de combinar funções é feito de maneira clara e concisa devido a natureza desse paradigma.
 
 \subsection{Observações gerais}
 
 O desenvolvimento do codigo proposto usando o paradigma funcional foi desafiador.
 A experiencia de um programador imperativo, em muitos casos, gera atrito com o paradigma funcional.
-O desenvolvimento eh analogo a sensacao de nao saber qual palavra usar em uma frase.
-O modelo mental do que deve ser feito no codigo eh conceitualmente claro porem a implementacao nao eh fluida.
+As restrições impostas pela falta de iteração e mutação forçam diferentes maneiras de resolver um problema.
+Em fala coloquial, o paradigma gera uma sensação de nao saber qual palavra usar em uma frase.
 
 Haskell, sendo uma linguagem puramente funcional, retira as ferramentas normalmente conhecidas de um programador imperativo.
-Muitas vezes ao escrever um programa imperativo, o objetivo eh claro e embora o caminho nao esteja totalmente claro, a liberdade dada pela mutabilidade de variaveis e pelo sequenciamento de instrucoes para realizar a computacao permite que o problema seja resolvido de maneira interativa.
-Em Haskell, dada as construcoes da linguagem, quanto maior uma funcao mais complicado eh o processo de desenvolver "interativamente".
-O programador eh incentivado a usar funcoes pequena para resolver o problema.
-O resultado eh um processo diferente para o desenvolvimento de codigo, os passos para resolver um problema em uma linguagem funcional devem estar muito mais claros.
-O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto a dificuldade que eh criar funcoes complexas, todas as funcoes auxiliares e a sequencia de transformacoes sobre o valor de entrada deve estar completamente entendido pelo programador.
-Isso nao quer dizer que esse processo eh exato, erros ainda ocorrem, mas o paradigma funcional forca o entendimento do problema de maneira macro antes da implementacao no micro, o que nao eh verdade na programacao imperativa.
+Muitas vezes ao escrever um programa imperativo, a tarefa é clara e embora o caminho não esteja totalmente claro, a liberdade dada pela mutabilidade de variaveis e pelo sequenciamento de instrucoes para realizar a computacao permite que o problema seja resolvido de maneira interativa.
+Essa pratica de resolver o problema durante a implementação não funciona bem em Haskell pois quanto maior a função mais complexo fica desenvolve-la.
+Devido a isso, o programador eh incentivado a usar funcoes pequenas para resolver o problema.
+O resultado é um processo diferente para o desenvolvimento de codigo, um processo onde os passos macro para resolver um problema devem estar muito mais claros.
+O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto que funções grandes são dificeis de implementas, todas as funcoes auxiliares e a sequencia de transformacoes sobre o valor de entrada deve estar completamente entendido pelo programador.
+O mesmo não é verdade no paradigma funcional.
+Nada impede o programador de escrever uma única função para realizar inumeras tarefa, embora seja uma pratica desencoragada devido ao problema que isso gera na compreensibilidade do codigo no futuro.
+É perfeitamente natural adicionar varias etapas de processamento e transformações em um procedimento na programação procedural; não existe nenhum atrito no processo.
+Essa diferença no processo de desenvolvimento nao livra o código de bugs, eles ainda ocorrem, mas o paradigma funcional forca o entendimento do problema de maneira macro antes da implementacao no micro, o que aumenta as chances de que o código escrito esteja correto na primeira vez.
 
 Um aspecto que nao ficou claro durante o desenvolvimento do projeto eh como lidar com um problema estruturalmente complexo.
 O problema de implementar um motor de busca eh regex tem poucos tipos de dados, somente a arvore de parse e a automata.
 Seria interessante ver como uma linguagem funcional se comportaria em um problema com varios tipos de dados e estruturas diferentes.
 
-A implementacao do modulo de parse foi a parte mais desafiador do ponto de vista tecnico.
-Os algoritimos bem documentados para parse de um stream de caracteres sao imperativos e nao possuem uma traducao direta para funcoes devido a mutacao.
-
-A construção de testes unitarios em linguagens funcionais pura é um processo mais simples do que em linguagem orientadas a objetos.
-Visto que objetos normalmente armazenam algum estado e possui referencia para outros objetos, a construção de testes unitarios involve tecnicas como mocking.
-Os mocks são usados para imitar algum tipo de objeto, isso permite que uma classe seja testada de maneira isolada, sem dependencias externas.
+Por fim, sobra o assunto de testes de software.
+Desenvolvedores experientes entendem muito bem a necessidade de escrever testes para códigos escritos.
+Existem vários tipos de testes mas os mais básicos são os testes unitarios.
+Foi observado que a construção de testes unitarios em uma linguagem funcional pura é um processo mais simples do que em linguagem orientadas a objetos, pois visto que objetos normalmente armazenam algum estado e possui referencia para outros objetos, a construção de testes unitarios involve tecnicas de mock.
+Os mocks são usados para imitar classes, muitas vezes imitando as dependencias internas de uma classe, isso permite que uma classe seja testada de maneira isolada.
 O uso de mock resolve o problema porém é um processo tedioso e verboso, sendo necessário especificar o comportamento de vários mocks para cenarios diferentes.
-Como em uma linguagem puramente funcional, nenhuma função depende de estado, validar o comportamento de uma função é trivial pois toda função possui uma entrada e uma saída clara.
-
+Como em uma linguagem puramente funcional, nenhuma função depende de estado, validar o comportamento de uma função é trivial pois toda função possui uma entrada e uma saída clara, dispensando o uso de mocks.
+Assim, os testes unitarios realmente passam a ser testes caixa-preta pois a implementação interna do código é irrelevante, não sendo necessario verificar que algum estado interno da classe tenha sido alterado.

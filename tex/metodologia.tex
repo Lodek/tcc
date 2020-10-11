@@ -76,15 +76,12 @@ A partir dessas funções, basta trafegar pela árvore para transforma-la em um 
 A tabela \ref{t-translator-funcs} apresenta as funções definidas para o módulo.
 Note que esse modulo não introduz um tipo de dado próprio, apenas realiza transformações.
 
-%\subsection{Modulo público e comando cli}
+\subsection{Modulo público}
 O módulo público cria uma interface para que a biblioteca seja facil de utilizar.
 Nesse módulo são definidas funções auxiliares e também um programa que pode ser rodado de maneira idependente.
 
 As funções do modulo público são apresentadas na tabela \ref{t-wrapper-funcs}.
-Essas funções apenas fazem chamadas para as funções dos diferentes modulos da biblioteca e não introduz nenhuma logica nova.
-
-O comando CLI é diferente pois ele deve tratar com a entrada e saída de valores, ou seja, realizar operações com o sistema.
-O programa criado recebe uma expressão regular como um argument do programa e le um texto para receber realizar a busca no stream de entrada padrão (stdin) e retorna o trecho do texto que satisfaz a regex.
+Essas funções apenas fazem chamadas para as funções dos diferentes modulos da biblioteca e não introduz nenhuma logica nova, apenas um interface para que o cliente final possa usar o modulo.
 
 \subsection{Práticas comuns e conclusão}
 Embora os módulos da biblioteca tenham objetivos distintos, algumas práticas foram utilizadas para implementar todos eles.
