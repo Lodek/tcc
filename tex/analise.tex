@@ -46,13 +46,20 @@ O módulo de conversão é responsável por transformar uma árvore de parse em 
 
 O "cerébro" da automata é dada pela função de transferencia, que retorna as possíveis transições para um estado da automata.
 Como foi visto, a construção da autmoata é feita de maneira incremental, onde automatas mais complexas são construidas a partir de um conjunto finito de estruturas bases.
-Assim sendo, as funções de transição do caso base devem ser combinadas e 
-Sendo assim, o módulo de conversão deve ser capaz de combinar as funções de transição dos casos base para gerar as novas construções.
-c
-O modulo de parse, então, deve combinar funções
+Para combinar as funçõ̀es de transição foram definidas funções que recebem duas funções de transiçao e retornam uma nova função de transição.
+Esse uso é um exemplo de uma função de ordem superior.
 
+Como funções são cidadoes de primeira classe em Haskell, pode-se passar funções para funções de maneira transparente.
+Isso faz com que combinar funções seja feito de maneira trivial, usando uma função lambda como o retorno das funções de combinação.
 
+A partir das fábricas para as operações primitivas, basta converter os nós e as folhas da árvore em automatas.
+Novamente, podemos ver um caso de uso para um fold, visto que deseja-se iterar sobre a árvore de parse e usar um único valor como resultado dessa iteração.
 
+Os desafios impostos pela implementação do modulo de conversão foram ideiais para programação funcional.
+O problema de combinar funções é feito de maneira clara e concisa devido a natureza do paradigma funcional.
+O uso de um fold e pattern matching permite identificar qual tipo de automata deve ser construída para diferentes árvores seja feita de maneira idiomatica.
+
+\subsection{Observações gerais}
 
 O desenvolvimento do codigo proposto usando o paradigma funcional foi desafiador.
 A experiencia de um programador imperativo, em muitos casos, gera atrito com o paradigma funcional.
@@ -73,4 +80,10 @@ Seria interessante ver como uma linguagem funcional se comportaria em um problem
 
 A implementacao do modulo de parse foi a parte mais desafiador do ponto de vista tecnico.
 Os algoritimos bem documentados para parse de um stream de caracteres sao imperativos e nao possuem uma traducao direta para funcoes devido a mutacao.
+
+A construção de testes unitarios em linguagens funcionais pura é um processo mais simples do que em linguagem orientadas a objetos.
+Visto que objetos normalmente armazenam algum estado e possui referencia para outros objetos, a construção de testes unitarios involve tecnicas como mocking.
+Os mocks são usados para imitar algum tipo de objeto, isso permite que uma classe seja testada de maneira isolada, sem dependencias externas.
+O uso de mock resolve o problema porém é um processo tedioso e verboso, sendo necessário especificar o comportamento de vários mocks para cenarios diferentes.
+Como em uma linguagem puramente funcional, nenhuma função depende de estado, validar o comportamento de uma função é trivial pois toda função possui uma entrada e uma saída clara.
 
