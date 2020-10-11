@@ -42,6 +42,16 @@ A função que gera o conjunto de estados acessível é recursiva e se repete at
 A partir da função acima, o resto da implementação da automata é trivial pois as funções da literatura podem ser facilmente traduzidas de maneira funcional.
 
 \subsection{Modulo de conversão}
+O módulo de conversão é responsável por transformar uma árvore de parse em uma automata.
+
+O "cerébro" da automata é dada pela função de transferencia, que retorna as possíveis transições para um estado da automata.
+Como foi visto, a construção da autmoata é feita de maneira incremental, onde automatas mais complexas são construidas a partir de um conjunto finito de estruturas bases.
+Assim sendo, as funções de transição do caso base devem ser combinadas e 
+Sendo assim, o módulo de conversão deve ser capaz de combinar as funções de transição dos casos base para gerar as novas construções.
+c
+O modulo de parse, então, deve combinar funções
+
+
 
 
 O desenvolvimento do codigo proposto usando o paradigma funcional foi desafiador.
