@@ -1,2 +1,66 @@
 \section{Analise e Discussão}
 
+A analise do codigo escrito sera feita por modulo.
+Sera abordado topicos relevantes sobre cada modulo a fim de exemplificar conceitos da programacao funcional.
+Por fim, sera feita uma analise sobre o processo de desenvolvimento como um todo.
+
+\subsection{Modulo de Parse}
+
+O modulo de parse é reponsável por transformar uma regex em formato de string em uma árvore.
+Um ponto crucial desse módulo é ler os caracteres do stream de entrada e identificar quando uma expressão completa foi lida.
+Por exemplo, como armazenar os caracteres que compõem uma subexpressão em uma expressão regular.
+
+Em uma linguagem imperativa, esse problema é trivial, basta adicionar os símbolos da subexpressão em uma estrutura de pilha e remove-los quando eles formarem uma unidade completa.
+Devido a imutabilidade das linguagens funcionais, isso não é possível
+
+Uma solução que respeita a imutabilidade é usando recurssão.
+Quando a função de converssão encontra um caractere que indica o inicio de um grupo, essa função chama a si propria para que seja construída a árvore da subexpressão.
+Essa função lê os caracteres de entrada até que seja identificado o fim de um grupo, onde é retornado a árvore para a subexpressão.
+Essa solução dispensa o uso de uma pilha e flags para guardar o estado do código, respeitando assim a imutabilidade do código.
+
+Com as árvores construidas elas dever ser unidas usando operadores, onde para cada operador, as duas primeiras árvores da pilha de árvores são unidas e o resultado é adicionado ao topo da pilha.
+Nessa caso, a solução requer tanto mutação quanto repetição.
+Esse problema pode ser resolvido usando um fold, basta notar deseja-se consumir o valor de uma lista e gerar um único valor a partir disso.
+A função de união itera sobre os operadores e usa como acumulador a lista de árvores.
+Para cada operador, as duas primeiras árvores são consumidas e o novo acumulador é uma nova lista onde a árvore resultante é o primeiro elemento, concatenado aos elemntos restantes da lista original.
+No final da execução o acumulador é uma lista com um unico elemento, a árvore final.
+
+\subsection{Modulo de Automatas}
+O modulo de automata implementa algoritimos que permite a simulação de uma automata.
+
+Seguindo a literatura, uma das funções usadas para simular uma automata deve receber um conjunto de estados e retornar um conjunto de todos os estados acessiveis usando uma transição nula, a função "epsilon closure".
+A soluçã̀o desse problema imperativamente faz uso de uma estrutura de repetição, uma lista de resultados a ser visitados, e uma lista de estados visitados.
+Para cada estado a ser visitado, adicione-o a lista de estado visitados e teste quais estados são acessíveis a partir dele, para cada estado acessível, cheque se ele está na lista de estados visitados, caso não, adicione-os á lista de resultados a ser visitados; esse procedimento é repetido até a lista de estados para visitar ficar vazia.
+
+Uma alternativa funcional desse problema é interessante pois demonstra uma solução inusitada, que faz uso de operações de conjunto.
+Para essa solução é necessário dois conjuntos, um de estados visitados e outro de estados a ser visitado.
+Assim, verifica-se todos os estados acessiveis a partir dos estados de entrada, esse gera um conjunto resultado temporario.
+O conjunto de estados a ser visitado passa a ser a diferença do conjunto de estados visitado e o conjunto temporario.
+O conjunto de estado visitados passa a ser a união do conjunto original com o conjunto temporario.
+A função que gera o conjunto de estados acessível é recursiva e se repete até que os estados a serem visitados forma o conjunto vazio.
+
+A partir da função acima, o resto da implementação da automata é trivial pois as funções da literatura podem ser facilmente traduzidas de maneira funcional.
+
+\subsection{Modulo de conversão}
+
+
+O desenvolvimento do codigo proposto usando o paradigma funcional foi desafiador.
+A experiencia de um programador imperativo, em muitos casos, gera atrito com o paradigma funcional.
+O desenvolvimento eh analogo a sensacao de nao saber qual palavra usar em uma frase.
+O modelo mental do que deve ser feito no codigo eh conceitualmente claro porem a implementacao nao eh fluida.
+
+Haskell, sendo uma linguagem puramente funcional, retira as ferramentas normalmente conhecidas de um programador imperativo.
+Muitas vezes ao escrever um programa imperativo, o objetivo eh claro e embora o caminho nao esteja totalmente claro, a liberdade dada pela mutabilidade de variaveis e pelo sequenciamento de instrucoes para realizar a computacao permite que o problema seja resolvido de maneira interativa.
+Em Haskell, dada as construcoes da linguagem, quanto maior uma funcao mais complicado eh o processo de desenvolver "interativamente".
+O programador eh incentivado a usar funcoes pequena para resolver o problema.
+O resultado eh um processo diferente para o desenvolvimento de codigo, os passos para resolver um problema em uma linguagem funcional devem estar muito mais claros.
+O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto a dificuldade que eh criar funcoes complexas, todas as funcoes auxiliares e a sequencia de transformacoes sobre o valor de entrada deve estar completamente entendido pelo programador.
+Isso nao quer dizer que esse processo eh exato, erros ainda ocorrem, mas o paradigma funcional forca o entendimento do problema de maneira macro antes da implementacao no micro, o que nao eh verdade na programacao imperativa.
+
+Um aspecto que nao ficou claro durante o desenvolvimento do projeto eh como lidar com um problema estruturalmente complexo.
+O problema de implementar um motor de busca eh regex tem poucos tipos de dados, somente a arvore de parse e a automata.
+Seria interessante ver como uma linguagem funcional se comportaria em um problema com varios tipos de dados e estruturas diferentes.
+
+A implementacao do modulo de parse foi a parte mais desafiador do ponto de vista tecnico.
+Os algoritimos bem documentados para parse de um stream de caracteres sao imperativos e nao possuem uma traducao direta para funcoes devido a mutacao.
+
