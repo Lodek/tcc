@@ -1,44 +1,46 @@
 \subsection{Programação Funcional}
 
-Primeiro, vejamos a historia das linguagens imperativas e seu desenvolvimento.
-Usaremos isso para contrastar com a progressão das linguagens funcionais.
+%A maquina de Turing foi muito importante para a evolução dos computadores, um modelo idealizado capaz de resolver vários problemas a partir de instruções simples.
+%Usando o modelo da maquina de Turing, os processadores foram projetados para mimicar essas operações, introduzindo instruções leitura, comparação e jump.
+%Como consequencia, vieram as linguagens assembly, uma especie de dicionario que permite programar usando palavras ao invés de códigos de instruções.
+%Embora assembly tenha facilitado muito a programação, ela ainda é muito próximo do hardware e extremamente trabalhoso de definir os passos para escrever um programa.
+%Para resolver isso veio a programação estruturada, que introduziu os ifs, whiles e fors.
+%O processo de design de linguagens foi longo, foram diversas abstrações, construidas de maneira iterativa.
+%Atualmente o paradigma considerado mais alto nível e muito usado é a orientação a objetos.
+%Perceba que as linguagens imperativas foram construídas a partir de uma construção simples e que o resultado foi um processo longo para tornar esse modelo mais intuitivo aos humanos, especialmente com a programação orientada a objetos.
 
-%Origens, lambda calculus e a diferente evoluçao.
-A maquina de Turing foi muito importante para a evolução dos computadores, um modelo idealizado capaz de resolver vários problemas a partir de instruções simples.
-Usando o modelo da maquina de Turing, os processadores foram projetados para mimicar essas operações, introduzindo instruções leitura, comparação e jump.
-Como consequencia, vieram as linguagens assembly, uma especie de dicionario que permite programar usando palavras ao invés de códigos de instruções.
-Embora assembly tenha facilitado muito a programação, ela ainda é muito próximo do hardware e extremamente trabalhoso de definir os passos para escrever um programa.
-Para resolver isso veio a programação estruturada, que introduziu os ifs, whiles e fors.
-O processo de design de linguagens foi longo, foram diversas abstrações, construidas de maneira iterativa.
-Atualmente o paradigma considerado mais alto nível e muito usado é a orientação a objetos.
-Perceba que as linguagens imperativas foram construídas a partir de uma construção simples e que o resultado foi um processo longo para tornar esse modelo mais intuitivo aos humanos, especialmente com a programação orientada a objetos.
-%Find citations
-
-Enquanto as linguagens imperativas tem como descendente comum a maquina de Turing, a programação funcional tem origem em um outro modelo mátematico da computação, o calculo lambda.
-O calculo lambda é um outro modelo matemático, que ao invés de focar em instruções, foca na construção e aplicação de funções.
-A introdução do calculo lambda foge do escopo desse trabalho, porém o mesmo é a origem das linguagens funcional.
-Embora a maquina de Turing e o calculo lambda seja ideologicamente diferentes, foi comprovado através da hipostose de Alan Turin and Wistom Churchill que os dois são equivalentes.
-Logo, os problemas resolvidos usando linguagens imperativas podem também ser resolvidos pelas linguagens funcional, e vice-versa.
-O fato desses dois paradigmas terem uma origem extremamente diferente é ótimo para ilustrar o motivo pelo qual muitos programadores tem dificuldade com linguagens funcional.
-Isso se deve ao fato delas serem construídas a partir de conceitos extremamente diferentes, porém ambos tem o mesmo objetivo: resolver problemas computacional.
-
-Segundo \cite{Bird},
+Programação funcional é um paradgima computacional que, de certa forma, contrasta com o paradigma imperativo.
+Esse paradigma é um topico extenso e rico, com uma grande historía por traz.
+Resumir esse assunto amplo é um desafio pois várias foram as contribuições e descobertas nessa campo de estudo.
+Um ponto de inicio é a definição dada por Bird \cite{Bird},
 \begin{quotation}
 "Programção funcional é: um método para construção de programas que enfatiza funções e suas aplicações ao invéz de commandos e suas execuções; programação funcional faz uso de notações matemática simples que permite que problemas sejam descritos de maneira clara e concisa. [...]".
 \end{quotation}
-A programação imperativa foca em passos para resolver um problema, cada passo desse pode ser traduzido de maneira rasoavelmente direta em instruções de uma CPU.
-Isso faz com que o procedimeto escrito imperativemente reflita muito mais a máquina do que ao homem.
+Esse paradigma difere do imperativo pois a programação imperativa foca em passos para resolver um problema.
 O paradigma funcional tira o foco nos passos individuais para solucionar o problema e enfatiza uma estrutura para resolver o problema.
+
+Embora seja dificil definir exatamente o paradigma funcional, a sua origem é bem clara.
+De maneira simplificada, o paradigma funcional veio a partir de um modelo computacional conhecido como Calculo Lambda.
+Segundo \cite{lambda}, o calculo lambda é um modelo de computabilidade criado por Alonzo Church em 1930
+Nesse modelo, a operação basica é a aplicação de funções \cite{lambda}.
+O calculo lambda teve um impacto muito importante na programação funcional, e alguns autores defendem que o calculo lambda é fundamental para a aprendizagem de programação funcional, porém nesse trabalho esse tópico não será abordado.
+
+A grande linguagem lisp marca as origens da programação funcional pois foi a primeira linguagem baseada no calculo lambda \cite{graham}.
+Essa seria apenas a primeira de um grande numero de linguagens que se baseariam nesse modelo.
+
+Deseja-se ressaltar que a famosa maquina de Turing, um conceito muito famoso da teoria da computabilidade, é equivalente ao calculo lambda.
+Embora a maquina de Turing e o calculo lambda seja ideologicamente diferentes, foi comprovado que os dois são equivalentes, essa hipotese é conhecida como a hipotese de Churchill-Turing \cite{computability}.
+Isso significa que os problemas que podem ser resolvidos por uma maquina de Turing, e como consequencia um computador moderno, podem ser resolvidos usando uma linguagem funcional.
 
 Em seguida serão abordados aspectos mais técnicos da programação funcional.
 
 \subsubsection{Imutabilidade}
 
 Um conceito comumente encontrado na programação funcional é a imutabilidade.
-Uma linguagem imutavel trata as variaveis de um programa similar à matemática, tal que o valor de uma variavel so pode ser definido no momento de sua inicializacão.
+Uma linguagem imutavel trata as variaveis de um programa similar à matemática, tal que o valor de uma variavel so pode ser definido no momento de sua inicializacão. 
 Isso é equivalente a definir todas as variaveis como final ou constante, dependendo da linguagem imperativa.
 
-A imutabilidade é desejavel pois permite racicionar sobre o programa de maneira mais facil, uma funcão nunca tera um efeito colateral.
+A imutabilidade é desejavel pois permite racicionar sobre o programa de maneira mais facil, uma funcão nunca tera um efeito colateral \cite{history}.
 Sabemos com certeza que um valor não ira mudar apos ter sido inicializado.
 Isso serve como uma especie de invariante que permite racionalizar sobre o programa.
 Isso evita diversos problemas comuns que ocorre quando compartilhamos objetos, desde falta de atenção pela parte do programador até condições de corrida impostas pelo algoritimo.
@@ -52,7 +54,7 @@ A recursão é extremamente utilizada na programação funcional pois ela permit
 
 Na programação, os tipos primitivos de uma linguagem são os blocos a partir do qual é possível construir estruturas complexas.
 Os tipos primitivos podem ser armazenados em uma variável, passados para uma função, e normalmente existem operadores que opera sobre esses tipos.
-Para a programação funcional, uma função é um tipo de dado primitivo, isso significa que é possível declarar e armazenar uma função em uma variavel, passar uma função para uma função e receber uma função como retorna de uma função.
+Para a programação funcional, uma função é um tipo de dado primitivo, isso significa que é possível declarar e armazenar uma função em uma variavel, passar uma função para uma função e receber uma função como retorna de uma função \cite{whyfpm}.
 
 Na programação funcional, usar uma função como um tipo de dado é uma pratica essencial para criar abstrações.
 Uma função que recebe uma função como argumento é chamada de função de ordem superior.
