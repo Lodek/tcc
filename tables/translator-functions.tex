@@ -1,0 +1,19 @@
+\begin{table}
+  \begin{tabular}{lll}
+  \hline
+  Nome & Assinatura & Descrição \\
+  \hline
+  singletonNFA & SigmaElem s -> Automata s & Gera uma automata para um caractere. \\
+  singletonDelta & SigmaElem s -> State -> State -> Delta s & Gera a função de transição para um caractere. \\
+  wrapState & State -> SigmaElem s -> Set State -> Delta s -> Delta s & Função auxiliar para adicionar transições. \\
+  addState & State -> Delta s -> Delta s & Adiciona um novo estado à função de transição. \\
+  addStateWithTransitions & State -> [(SigmaElem s, Set State)] -> Deta s -> Delta s & Adiciona um estado com transições. \\
+  alternateDelta &  State -> State -> NFA s -> NFA s -> NFA s & Combina duas automatas tal que o resultado seja equivalente a operação de alternação em uma regex. \\
+  concatNFA & NFA s -> NFA s -> NFA s & Combina duas automatas tal que o resultado seja equivalente a operação de concatenação em uma regex. \\
+  kleenifyNFA & State -> State -> NFA s -> NFA s & Adiciona estados à uma automata tal que o resultado seja equivalente ao operador "*" em uma regex.\\
+  foldParseTree & ParseTree -> NFA s & Converte a arvore de parse em uma automata.\\
+ \hline
+  \end{tabular}
+\caption{Tabela de funções para o modulo de conversão. Cada função é apresentada com sua assinatura e uma breve descrição.}
+\label{t-translator-funcs}
+\end{table}

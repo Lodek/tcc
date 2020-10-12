@@ -5,13 +5,13 @@
   \hline
   buildSigma & [a] -> Set (SigmaElem a) &  Constroi um alfabeto a partir de uma lista. \\
   unionAndApplyOverDiff & (Set a -> Set a) -> Set a -> Set a -> (Set a, Set a) & Retorna a união dos conjuntos e o resultado de uma função aplicada sobre a diferença de dois conjuntos. \\
-  deltarOverSet & Delta s -> SigmaElem s -> Set State -> Set State & Aplica delta sobre simbolos, retorna todos os estados acessiveis
+  deltarOverSet & Delta s -> SigmaElem s -> Set State -> Set State & Aplica delta sobre simbolos, retorna todos os estados acessiveis. \\
   epsilonClosure & Delta s -> Set State -> Set State & Retorna todos estados acessiveis usando a transição nula.\\
-  stateEpsilonClosure & Delta s -> State -> Set State & Retorna estados acessiveis usando a transição nula para um uninco estado.
+  stateEpsilonClosure & Delta s -> State -> Set State & Retorna estados acessiveis usando a transição nula para um uninco estado. \\
   move & Delta s -> State -> SigmaElem -> Set State & Dado um símbolo e um estado, retorna todos estados acessiveis. \\
-  eval & Delta s -> State -> Set State -> [s] -> Bool & Aplica a maquina de estados sobre um stream de entrada
+  eval & Delta s -> State -> Set State -> [s] -> Bool & Aplica a maquina de estados sobre um stream de entrada.\\
  \hline
   \end{tabular}
-\caption{Tabela de funções para o modulo de parse. Cada função é apresentada com sua assinatura e uma breve descrição.}
+\caption{Tabela de funções para o modulo de automatas. Cada função é apresentada com sua assinatura e uma breve descrição.}
 \label{t-automata-funcs}
 \end{table}

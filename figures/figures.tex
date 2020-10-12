@@ -1,0 +1,40 @@
+\newcommand{\figdataparse}{
+\begin{figure}
+\begin{lstlisting}
+type Symbol = Char
+
+data Operator = Concat | Alternation deriving (Show, Eq)
+data Quantifier = Kleene deriving (Show, Eq)
+data Token = SToken Symbol | QtToken Quantifier | OpToken Operator | GroupBegin | GroupEnd deriving (Show, Eq)
+
+data SubExpression = SubExp [Token] | QuantifiedSubExp [Token] Quantifier deriving (Show, Eq)
+
+data ParseTree = Node ParseTree Operator ParseTree | QuantifierLeaf ParseTree Quantifier | Leaf Symbol deriving (Show, Eq)
+
+\end{lstlisting}
+\caption{Tipos de dados definidos para o modulo de parse.}
+\label{f-data-parse}
+\end{figure}
+}
+
+\newcommand{\figdataautomata}{
+\begin{figure}
+\begin{lstlisting}
+data SigmaElem s = Symbol s | Epsilon deriving (Show, Eq)
+type State = Int
+
+type Sigma s = Set.Set (SigmaElem s)
+
+type Delta s = (State -> SigmaElem s -> Set.Set State)
+
+data Automata s = NFA { alphabet :: Set.Set (SigmaElem s),
+                          states :: Set.Set State,
+                          q0 :: State,
+                          qas :: Set.Set State,
+                          delta :: Delta s
+                        }
+\end{lstlisting}
+\caption{Tipos de dados definidos para o modulo de automatas.}
+\label{f-data-automata}
+\end{figure}
+}
