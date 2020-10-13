@@ -7,34 +7,34 @@ Por fim, sera feita uma analise sobre o processo de desenvolvimento como um todo
 \subsection{Modulo de Parse}
 
 O modulo de parse é reponsável por transformar uma regex em formato de string em uma árvore.
-Um ponto crucial desse módulo é ler os caracteres do stream de entrada e identificar quando uma expressão completa foi lida.
-Por exemplo, como armazenar os caracteres que compõem uma subexpressão em uma expressão regular.
+Um ponto crucial desse módulo é ler os caracteres do \emph{stream} de entrada e identificar quando uma expressão completa foi lida.
+Por exemplo, armazenar os caracteres que compõem uma subexpressão de uma expressão regular.
 
-Em uma linguagem imperativa, esse problema é trivial, basta adicionar os símbolos da subexpressão em uma estrutura de pilha e remove-los quando eles formarem uma unidade completa.
+Em uma linguagem imperativa, esse problema é trivial, basta adicionar os símbolos da subexpressão à uma estrutura de pilha e remove-los quando eles formarem uma unidade completa.
 Devido a imutabilidade das linguagens funcionais, isso não é possível
 
-Uma solução que respeita a imutabilidade é usando recurssão.
+Uma alternativa que respeita a imutabilidade faz uso de recurssão.
 Quando a função de converssão encontra um caractere que indica o inicio de um grupo, essa função chama a si propria para que seja construída a árvore da subexpressão.
-Essa função lê os caracteres de entrada até que seja identificado o fim de um grupo, onde é retornado a árvore para a subexpressão.
-Essa solução dispensa o uso de uma pilha e flags para guardar o estado do código, respeitando assim a imutabilidade do código.
+Ela lê os caracteres de entrada até que seja identificado o fim de um grupo, onde é retornado a árvore para a subexpressão.
+Essa solução dispensa o uso de uma pilha e flags para guardar o estado do código, mantendo a imutabilidade.
 
 Com as árvores construidas elas dever ser unidas usando operadores, onde para cada operador, as duas primeiras árvores da pilha de árvores são unidas e o resultado é adicionado ao topo da pilha.
 Nessa caso, a solução requer tanto mutação quanto repetição.
-Esse problema pode ser resolvido usando um fold, basta notar deseja-se consumir o valor de uma lista e gerar um único valor a partir disso.
+Esse problema pode ser resolvido usando um \emph{fold}, basta notar que o objetivo é consumir o valor de uma lista e gerar um único valor a partir disso.
 A função de união itera sobre os operadores e usa como acumulador a lista de árvores.
-Para cada operador, as duas primeiras árvores são consumidas e o novo acumulador é uma nova lista onde a árvore resultante é o primeiro elemento, concatenado aos elemntos restantes da lista original.
+Para cada operador, os doids primeiros elementos ão unidos e o novo acumulador é uma nova lista onde a árvore resultante é o primeiro elemento concatenado ao resto da lista original.
 No final da execução o acumulador é uma lista com um unico elemento, a árvore final.
 
-A implementacao do modulo de parse foi a parte mais desafiadora do ponto de vista tecnico.
-Os algoritimos bem documentados para parse de um stream de caracteres sao imperativos e nao possuem uma traducao direta para funcoes devido a mutacao.
-Existem alternativas mais apropriadas para escrever um parser em Haskell que faz uso de Monads.
-Essa metodologia nao foi escolhida pois monads são um tópico avançado e não alinhariam com a proposta educativa do trabalho.
+A implementação do modulo de parse foi a parte mais desafiadora do ponto de vista técnico.
+Os algoritimos bem documentados para parse de \emph{stream} de caracteres são imperativos e não possuem uma traducao direta para funcoes devido a mutacao.
+Existem alternativas mais apropriadas para escrever um parser em Haskell que faz uso de \emph{Monads}.
+Essa metodologia nao foi escolhida pois monads são um tópico avançado e não alinham com a proposta educativa do trabalho.
 
 \subsection{Modulo de Automatas}
-O modulo de automata implementa algoritimos que permite a simulação de uma automata.
+O modulo de automata implementa algoritimos que permitem a simulação de uma automata.
 
-Seguindo a literatura, uma das funções usadas para simular uma automata deve receber um conjunto de estados e retornar um conjunto de todos os estados acessiveis usando uma transição nula, a função "epsilon closure".
-A solução desse problema imperativamente faz uso de uma estrutura de repetição, uma lista de resultados a ser visitados, e uma lista de estados visitados.
+Seguindo a literatura \cite{dragon-book}, uma das funções usadas para simular uma automata deve receber um conjunto de estados e retornar um conjunto de todos os estados acessiveis usando uma transição nula, a função "epsilon closure".
+A solução desse problema imperativamente faz uso de uma estrutura de repetição, uma lista de resultados a ser visitados e uma lista de estados visitados.
 Para cada estado a ser visitado, adicione-o a lista de estado visitados e teste quais estados são acessíveis a partir dele, para cada estado acessível, cheque se ele está na lista de estados visitados, caso não, adicione-os á lista de resultados a ser visitados; esse procedimento é repetido até a lista de estados para visitar ficar vazia.
 
 Uma alternativa funcional desse problema é interessante pois demonstra uma solução inusitada, que faz uso de operações de conjunto.
@@ -51,15 +51,15 @@ A partir da função acima, o resto da implementação da automata é trivial po
 O módulo de conversão é responsável por transformar uma árvore de parse em uma automata.
 
 O "cerébro" da automata é dada pela função de transferencia, que retorna as possíveis transições para um estado da automata.
-Como foi visto, a construção da autmoata é feita de maneira incremental, onde automatas mais complexas são construidas a partir de um conjunto finito de estruturas bases.
+Como foi visto, a construção da automata é feita de maneira incremental, onde automatas mais complexas são construidas a partir de um conjunto finito de estruturas bases.
 Para combinar as funções de transição foram definidas funções que recebem duas funções de transiçao e retornam uma nova função de transição.
 Esse uso é um exemplo de uma função de ordem superior.
 
-Como funções são cidadoes de primeira classe em Haskell, pode-se passar funções para funções de maneira transparente.
+Como funções são cidadões de primeira classe em Haskell, pode-se passar funções para funções de maneira transparente.
 Isso faz com que combinar funções seja feito de maneira trivial, usando uma função lambda como o retorno das funções de combinação.
 
 Para construir a automata final, basta converter os nós e as folhas da árvore em automatas, fazendo o uso das funções fábricas para gerar as funções de transição intermediarias.
-A conversão da árvore para uma automata é mais um caso de uso para um fold, visto que deseja-se iterar sobre a árvore de parse, um tipo de dado multi-valor, e gerar um único valor a partir dela.
+A conversão da árvore para uma automata é mais um caso de uso para um \emph{fold}, visto que deseja-se iterar sobre a árvore de parse, um tipo de dado multi-valor, e gerar um único valor a partir dela.
 
 Visto que grande parte do trabalho do modulo de conversão involve a manipulação de funçõese, é notavel que os desafios impostos pela implementação desse modulo fazem bom uso das ferramentas da programação funcional.
 O problema de combinar funções é feito de maneira clara e concisa devido a natureza desse paradigma.
@@ -76,21 +76,12 @@ Muitas vezes ao escrever um programa imperativo, a tarefa é clara e embora o ca
 Essa pratica de resolver o problema durante a implementação não funciona bem em Haskell pois quanto maior a função mais complexo fica desenvolve-la.
 Devido a isso, o programador eh incentivado a usar funcoes pequenas para resolver o problema.
 O resultado é um processo diferente para o desenvolvimento de codigo, um processo onde os passos macro para resolver um problema devem estar muito mais claros.
-O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto que funções grandes são dificeis de implementas, todas as funcoes auxiliares e a sequencia de transformacoes sobre o valor de entrada deve estar completamente entendido pelo programador.
+O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto que funções grandes são dificeis de implementar, todas as funcoes auxiliares e a sequencia de transformacoes necessarias devem estar completamente entendidas pelo programador.
 O mesmo não é verdade no paradigma funcional.
-Nada impede o programador de escrever uma única função para realizar inumeras tarefa, embora seja uma pratica desencoragada devido ao problema que isso gera na compreensibilidade do codigo no futuro.
-É perfeitamente natural adicionar varias etapas de processamento e transformações em um procedimento na programação procedural; não existe nenhum atrito no processo.
+Nada impede o programador de escrever uma única função para realizar inumeras tarefas, embora seja uma pratica desencoragada devido ao problema de compreensibilidade do codigo que isso gera.
+É perfeitamente natural adicionar varias etapas de processamento e transformações em uma rotina na programação imperativa; não existe nenhum atrito no processo.
 Essa diferença no processo de desenvolvimento nao livra o código de bugs, eles ainda ocorrem, mas o paradigma funcional forca o entendimento do problema de maneira macro antes da implementacao no micro, o que aumenta as chances de que o código escrito esteja correto na primeira vez.
 
 Um aspecto que nao ficou claro durante o desenvolvimento do projeto eh como lidar com um problema estruturalmente complexo.
 O problema de implementar um motor de busca eh regex tem poucos tipos de dados, somente a arvore de parse e a automata.
 Seria interessante ver como uma linguagem funcional se comportaria em um problema com varios tipos de dados e estruturas diferentes.
-
-Por fim, sobra o assunto de testes de software.
-Desenvolvedores experientes entendem muito bem a necessidade de escrever testes para códigos escritos.
-Existem vários tipos de testes mas os mais básicos são os testes unitarios.
-Foi observado que a construção de testes unitarios em uma linguagem funcional pura é um processo mais simples do que em linguagem orientadas a objetos, pois visto que objetos normalmente armazenam algum estado e possui referencia para outros objetos, a construção de testes unitarios involve tecnicas de mock.
-Os mocks são usados para imitar classes, muitas vezes imitando as dependencias internas de uma classe, isso permite que uma classe seja testada de maneira isolada.
-O uso de mock resolve o problema porém é um processo tedioso e verboso, sendo necessário especificar o comportamento de vários mocks para cenarios diferentes.
-Como em uma linguagem puramente funcional, nenhuma função depende de estado, validar o comportamento de uma função é trivial pois toda função possui uma entrada e uma saída clara, dispensando o uso de mocks.
-Assim, os testes unitarios realmente passam a ser testes caixa-preta pois a implementação interna do código é irrelevante, não sendo necessario verificar que algum estado interno da classe tenha sido alterado.
