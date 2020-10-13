@@ -1,12 +1,12 @@
 \section{Referencial Teorico}
 
 \subsection{Expressões Regulares}
-As expressões regulares foram escolhidas como o problema computacional de interesse para introduzir as expressões regulares, porém como elas não são o foco destre trabalho, sua abordagem será simplificada.
-Nessa secão será introduzido o que é uma expressão regular, para que elas servem e como implementa-las.
+As expressões regulares foram escolhidas como o problema computacional de interesse para introduzir programação funcional, porém como elas não são o foco destre trabalho, sua abordagem será simplificada.
+Nessa seção será introduzido o que é uma expressão regular, para que elas servem e como implementa-las.
 
-\subsubsection{Introducão}
-As expressões regulares, ou regex do inglês \emph{regular expression}, são uma ferramenta muito poderoza na computação, utilizadas para processar texto.
-De maneira simplificada, uma expressão regular é uma linguagem usada para descrever padrões de caracteres.
+\subsubsection{Introdução}
+As expressões regulares, ou regex do inglês \emph{regular expression}, são uma ferramenta muito poderoza para processamento de textos.
+De maneira simplificada, uma expressão regular é uma linguagem usada para descrever padrões de caracteres \cite{mastering}.
 A partir da expressão regular, e um texto alvo, usa-se um motor de busca que varre o texto a procura de segmentos para o qual a expressão regular é aceita.
 Um exemplo de uso seria uma expressão regular para buscar por todas as menções de hora em um texto, assumindo que o horario tenha um padrão uniforme (ex. HH:MM).
 Pode-se criar uma expressão regular para esse formato, e usando uma ferramenta de busca, encontrar todos os strings que atendam o formato definido.
@@ -15,38 +15,38 @@ Como dito anteriormente, a regex define uma linguagem para definir padrões de t
 Normalmente, essas linguagens fazem uso de caracteres especiais para indicar operações.
 As operções básica são: concatenação, alternação, repetição e agrupamento.
 
-A regex mais simple é simples é um único caractere não especial, por exemplo "0", uma regex que procura pelo caractere 0.
-A operação de concatenção é implicita em uma regex, qualquer dois caracteres não especiais estão concatenados.
+A regex mais simple é um único caractere não especial, por exemplo "0", uma regex que procura pelo caractere "0".
+A operação de concatenção é implicita em uma regex, qualquer dois caracteres justapostos, não especiais, estão concatenados.
 Sendo assim, a regex "01" procura pelo string "01".
-A alternação normalemente é indicada pelo caractere "|", que indica que um caractere ou outro é valido.
+A alternação normalemente é indicada pelo caractere "\|", que indica que um caractere ou outro é valido.
 Um exemplo de alternação é a regex "01|0", que procura pelos strings "01" ou "00".
 Existem vários operadores de repetição, um dos mais usados é o operador de Kleene, normalmente indicado por "*", esse operador indica que o caractere, ou grupo, que o precede pode ocorrer 0 ou mais veses.
 Por exemplo, a regex "01*" é equivalente a "0", "01", "011" e "0111...", ou seja, qualquer string que tenha um "0" seguido por qualquer numero de "1"s.
-Por ultimo, o agrupamento é definido usando parenteses "(01)", normalmente utilizado para indicar a repetição de um grupo de caracteres.
+Por ultimo, o agrupamento é definido usando parenteses "(01)", normalmente utilizado para indicar a repetição de um grupo de caracteres\cite{mastering}.
 
 Existem várias outras funcionalidades e operadores, porém esses são os básicos.
 Para uma referência mais exaustiva, consulte \cite{mastering}.
 
 \subsubsection{Teoria das regex}
-As expressões regulares tem origem na teoria das linguagens formais, um assunto muito importante que formalizou a síntaxe das linguagens de programação.
-Fora a algebra por traz desse tópico, existem ainda os inúmeras diferentes dialetos para regexes, visto que a existem varias implementações diferentes com funcionalidades distintas.
-Sendo assim, regexes são um tópico extenso e complexo, que foje do escopo deste trabalho.
-Para tanto, será explicado como uma regex é modelada em um ambiente computacional, o mínimo necessário para serem implementadas.
+As expressões regulares tem origem na teoria das linguagens formais, um assunto muito importante que formalizou a síntaxe das linguagens de programação \cite{theory-computation}.
+Fora a algebra por traz desse tópico, existem ainda os inúmeros diferentes dialetos para regexes, visto que a existem varias implementações diferentes com funcionalidades distintas.
+Sendo assim, regexes são um tópico extenso e complexo, e uma abordagem completa foje do escopo deste trabalho.
+Contudo, será explicado como uma regex é modelada em um ambiente computacional, o mínimo necessário para serem implementadas.
 
 Uma regex é equivalente a uma máquina de estados, ou automata \cite{theory-computation}.
-Uma máquina de estado é um bom modelo mátematico para um computador limitador \cite{theory-computation}.
-A máquina de estado opera sobre símbolos de entrada, a cada símbolo enviado à ela, ela muda de estado.
-A computação da máquina de estado encerra quando não existem mais símbolos de entrada, caso ela esteja em um estado de aceitação, a computação foi bem sucessida.
+Uma máquina de estado é um bom modelo mátematico para um computador limitado, que opera sobre símbolos de entrada.
+A maquina de estado processa cada símbolo de entrada e muda de estado de acordo com sua construção. \cite{theory-computation}.
+A computação da máquina de estado encerra quando não existem mais símbolos de entrada, caso ela esteja em um de seus estado de aceitação, a computação foi é valida.
 
 Formalmente, uma maquina de estados consiste de: estados, símbolos de entrada, um estado de inicio, estados de aceitação e uma função de transição.
-Os estados são denomidados por um nome único, normalmente um número.
-Os símbolos de entrada são o conjunto de caracteres que a maquina de estados reconhece.
+Cada estado é denominado por um nome único, normalmente um número.
+Os símbolos de entrada são um conjunto de caracteres que a maquina de estados reconhece, o conjunto de todos os símbolos reconhecidos forma o alfabeto da automata.
 O estado de inicio é o estado inicial da máquina de estados, sempre que iniciada ela se encontra nesse estado.
-A maquina de estado pode ter um conjunto de estados que são considerados válidos quando não existem mais símbolos de entrada.
-A funcão de transicão é responsável por inteligar estados, essa função recebe um símbolo de entrada, o estado atual e retorna um novo estado. \cite{theory}
+A maquina de estado possui um conjunto de estados de aceitação, caso a a computação encerre em um desses estados, a computação foi válida.
+A função de transição é responsável por inteligar estados, essa função recebe um símbolo de entrada, o estado atual e retorna um novo estado. \cite{theory}
 
 Uma regex é equivalente a uma automata, segundo \cite{dragon-book}, podemos construir uma automata para uma regex de maneira indutiva.
-Na literatura, é enumerado as diferentes automatas equivalentes as regex primitivas, junto de como combinar automatas.
+Na literatura, é enumerado as diferentes automatas equivalentes as regex primitivas, junto de como combinar essas automatas.
 Sendo assim, para  construir um motor de busca deve-se converter os primitivos da regex em uma automata primitiva e em seguinda, combinar as automatas.
 
 Em conclusão, as expressões regulares são usadas para buscar padrões de texto.
