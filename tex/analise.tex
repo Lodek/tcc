@@ -1,87 +1,87 @@
-\section{Analise e Discussão}
+\section{Análise e Discussão}
 
-A analise do codigo escrito sera feita por modulo.
+A análise do código escrito será feita por módulo.
 Sera abordado topicos relevantes sobre cada modulo a fim de exemplificar conceitos da programacao funcional.
-Por fim, sera feita uma analise sobre o processo de desenvolvimento como um todo.
+Por fim, será feita uma análise sobre o processo de desenvolvimento como um todo.
 
-\subsection{Modulo de Parse}
+\subsection{Módulo de Parse}
 
-O modulo de parse é reponsável por transformar uma regex em formato de string em uma árvore.
+O módulo de parse é responsável por transformar uma regex em formato de string em uma árvore.
 Um ponto crucial desse módulo é ler os caracteres do \emph{stream} de entrada e identificar quando uma expressão completa foi lida.
 Por exemplo, armazenar os caracteres que compõem uma subexpressão de uma expressão regular.
 
-Em uma linguagem imperativa, esse problema é trivial, basta adicionar os símbolos da subexpressão à uma estrutura de pilha e remove-los quando eles formarem uma unidade completa.
+Em uma linguagem imperativa, esse problema é trivial, basta adicionar os símbolos da subexpressão à uma estrutura de pilha e removê-los quando eles formarem uma unidade completa.
 Devido a imutabilidade das linguagens funcionais, isso não é possível
 
-Uma alternativa que respeita a imutabilidade faz uso de recurssão.
-Quando a função de converssão encontra um caractere que indica o inicio de um grupo, essa função chama a si propria para que seja construída a árvore da subexpressão.
+Uma alternativa que respeita a imutabilidade faz uso de recursão.
+Quando a função de conversão encontra um caractere que indica o início de um grupo, essa função chama a si própria para que seja construída a árvore da subexpressão.
 Ela lê os caracteres de entrada até que seja identificado o fim de um grupo, onde é retornado a árvore para a subexpressão.
 Essa solução dispensa o uso de uma pilha e flags para guardar o estado do código, mantendo a imutabilidade.
 
-Com as árvores construidas elas dever ser unidas usando operadores, onde para cada operador, as duas primeiras árvores da pilha de árvores são unidas e o resultado é adicionado ao topo da pilha.
-Nessa caso, a solução requer tanto mutação quanto repetição.
+Com as árvores construídas elas devem ser unidas usando operadores, onde para cada operador, as duas primeiras árvores da pilha de árvores são unidas e o resultado é adicionado ao topo da pilha.
+Nesse caso, a solução requer tanto mutação quanto repetição.
 Esse problema pode ser resolvido usando um \emph{fold}, basta notar que o objetivo é consumir o valor de uma lista e gerar um único valor a partir disso.
 A função de união itera sobre os operadores e usa como acumulador a lista de árvores.
-Para cada operador, os doids primeiros elementos ão unidos e o novo acumulador é uma nova lista onde a árvore resultante é o primeiro elemento concatenado ao resto da lista original.
-No final da execução o acumulador é uma lista com um unico elemento, a árvore final.
+Para cada operador, os dois primeiros elementos são unidos e o novo acumulador é uma nova lista onde a árvore resultante é o primeiro elemento concatenado ao resto da lista original.
+No final da execução o acumulador é uma lista com um único elemento, a árvore final.
 
-A implementação do modulo de parse foi a parte mais desafiadora do ponto de vista técnico.
-Os algoritimos bem documentados para parse de \emph{stream} de caracteres são imperativos e não possuem uma traducao direta para funcoes devido a mutacao.
+A implementação do módulo de parse foi a parte mais desafiadora do ponto de vista técnico.
+Os algoritmos bem documentados para parse de \emph{stream} de caracteres são imperativos e não possuem uma tradução direta para funções devido a mutação.
 Existem alternativas mais apropriadas para escrever um parser em Haskell que faz uso de \emph{Monads}.
-Essa metodologia nao foi escolhida pois monads são um tópico avançado e não alinham com a proposta educativa do trabalho.
+Essa metodologia não foi escolhida pois monads são um tópico avançado e não alinham com a proposta educativa do trabalho.
 
-\subsection{Modulo de Automatas}
-O modulo de automata implementa algoritimos que permitem a simulação de uma automata.
+\subsection{Módulo de Automatas}
+O módulo de automata implementa algoritmos que permitem a simulação de uma automata.
 
-Seguindo a literatura \cite{dragon-book}, uma das funções usadas para simular uma automata deve receber um conjunto de estados e retornar um conjunto de todos os estados acessiveis usando uma transição nula, a função "epsilon closure".
+Seguindo a literatura \cite{dragon-book}, uma das funções usadas para simular uma automata deve receber um conjunto de estados e retornar um conjunto de todos os estados acessíveis usando uma transição nula, a função "epsilon closure".
 A solução desse problema imperativamente faz uso de uma estrutura de repetição, uma lista de resultados a ser visitados e uma lista de estados visitados.
-Para cada estado a ser visitado, adicione-o a lista de estado visitados e teste quais estados são acessíveis a partir dele, para cada estado acessível, cheque se ele está na lista de estados visitados, caso não, adicione-os á lista de resultados a ser visitados; esse procedimento é repetido até a lista de estados para visitar ficar vazia.
+Para cada estado a ser visitado, adicione-o à lista de estados visitados e teste quais estados são acessíveis a partir dele, para cada estado acessível, cheque se ele está na lista de estados visitados, caso não, adicione-os á lista de resultados a ser visitados; esse procedimento é repetido até a lista de estados para visitar ficar vazia.
 
 Uma alternativa funcional desse problema é interessante pois demonstra uma solução inusitada, que faz uso de operações de conjunto.
 Para essa solução é necessário dois conjuntos, um de estados visitados e outro de estados a ser visitado.
-Assim, verifica-se todos os estados acessiveis a partir dos estados de entrada, esse gera um conjunto resultado temporario.
-O conjunto de estados a ser visitado passa a ser a diferença do conjunto de estados visitado e o conjunto temporario.
-O conjunto de estado visitados passa a ser a união do conjunto original com o conjunto temporario.
+Assim, verifica-se todos os estados acessíveis a partir dos estados de entrada, esse gera um conjunto resultado temporário.
+O conjunto de estados a ser visitado passa a ser a diferença do conjunto de estados visitado e o conjunto temporário.
+O conjunto de estado visitados passa a ser a união do conjunto original com o conjunto temporário.
 A função que gera o conjunto de estados acessível é recursiva e se repete até que os estados a serem visitados forma o conjunto vazio.
-A alternativa funcional para a função \emph{epislon closure} é interessante pois mostra que, por mais que mutação de valores seja uma prática intuitiva para o desenvolvedor experiente, muitas vezes existem alternativas que podem ser mais breves e mais elegantes.
+A alternativa funcional para a função \emph{epsilon closure} é interessante pois mostra que, por mais que mutação de valores seja uma prática intuitiva para o desenvolvedor experiente, muitas vezes existem alternativas que podem ser mais breves e mais elegantes.
 
 A partir da função acima, o resto da implementação da automata é trivial pois as funções da literatura podem ser facilmente traduzidas para o paradigma funcional.
 
-\subsection{Modulo de conversão}
+\subsection{Módulo de conversão}
 O módulo de conversão é responsável por transformar uma árvore de parse em uma automata.
 
-O "cerébro" da automata é dada pela função de transferencia, que retorna as possíveis transições para um estado da automata.
-Como foi visto, a construção da automata é feita de maneira incremental, onde automatas mais complexas são construidas a partir de um conjunto finito de estruturas bases.
-Para combinar as funções de transição foram definidas funções que recebem duas funções de transiçao e retornam uma nova função de transição.
+O "cérebro" da automata é dada pela função de transferência, que retorna as possíveis transições para um estado da automata.
+Como foi visto, a construção da automata é feita de maneira incremental, onde automatas mais complexas são construídas a partir de um conjunto finito de estruturas bases.
+Para combinar as funções de transição foram definidas funções que recebem duas funções de transição e retornam uma nova função de transição.
 Esse uso é um exemplo de uma função de ordem superior.
 
-Como funções são cidadões de primeira classe em Haskell, pode-se passar funções para funções de maneira transparente.
+Como funções são cidadãos de primeira classe em Haskell, pode-se passar funções para funções de maneira transparente.
 Isso faz com que combinar funções seja feito de maneira trivial, usando uma função lambda como o retorno das funções de combinação.
 
-Para construir a automata final, basta converter os nós e as folhas da árvore em automatas, fazendo o uso das funções fábricas para gerar as funções de transição intermediarias.
+Para construir a automata final, basta converter os nós e as folhas da árvore em automatas, fazendo o uso das funções fábricas para gerar as funções de transição intermediárias.
 A conversão da árvore para uma automata é mais um caso de uso para um \emph{fold}, visto que deseja-se iterar sobre a árvore de parse, um tipo de dado multi-valor, e gerar um único valor a partir dela.
 
-Visto que grande parte do trabalho do modulo de conversão involve a manipulação de funçõese, é notavel que os desafios impostos pela implementação desse modulo fazem bom uso das ferramentas da programação funcional.
+Visto que grande parte do trabalho do módulo de conversão envolve a manipulação de funções, é notável que os desafios impostos pela implementação desse módulo fazem bom uso das ferramentas da programação funcional.
 O problema de combinar funções é feito de maneira clara e concisa devido a natureza desse paradigma.
 
 \subsection{Observações gerais}
 
-O desenvolvimento do codigo proposto usando o paradigma funcional foi desafiador.
-A experiencia de um programador imperativo, em muitos casos, gera atrito com o paradigma funcional.
+O desenvolvimento do código proposto usando o paradigma funcional foi desafiador.
+A experiência de um programador imperativo, em muitos casos, gera atrito com o paradigma funcional.
 As restrições impostas pela falta de iteração e mutação forçam diferentes maneiras de resolver um problema.
-Em fala coloquial, o paradigma gera uma sensação de nao saber qual palavra usar em uma frase.
+Em fala coloquial, o paradigma gera uma sensação de não saber qual palavra usar em uma frase.
 
 Haskell, sendo uma linguagem puramente funcional, retira as ferramentas normalmente conhecidas de um programador imperativo.
 Muitas vezes ao escrever um programa imperativo, a tarefa é clara e embora o caminho não esteja totalmente claro, a liberdade dada pela mutabilidade de variaveis e pelo sequenciamento de instrucoes para realizar a computacao permite que o problema seja resolvido de maneira interativa.
 Essa pratica de resolver o problema durante a implementação não funciona bem em Haskell pois quanto maior a função mais complexo fica desenvolve-la.
-Devido a isso, o programador eh incentivado a usar funcoes pequenas para resolver o problema.
+Devido a isso, o programador é incentivado a usar funções pequenas para resolver o problema.
 O resultado é um processo diferente para o desenvolvimento de codigo, um processo onde os passos macro para resolver um problema devem estar muito mais claros.
-O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto que funções grandes são dificeis de implementar, todas as funcoes auxiliares e a sequencia de transformacoes necessarias devem estar completamente entendidas pelo programador.
+O problema a ser resolvido deve estar totalmente compreendido antes do desenvolvimento comecar, pois visto que funções grandes são difíceis de implementar, todas as funções auxiliares e a sequência de transformações necessárias devem estar completamente entendidas pelo programador.
 O mesmo não é verdade no paradigma funcional.
-Nada impede o programador de escrever uma única função para realizar inumeras tarefas, embora seja uma pratica desencoragada devido ao problema de compreensibilidade do codigo que isso gera.
-É perfeitamente natural adicionar varias etapas de processamento e transformações em uma rotina na programação imperativa; não existe nenhum atrito no processo.
-Essa diferença no processo de desenvolvimento nao livra o código de bugs, eles ainda ocorrem, mas o paradigma funcional forca o entendimento do problema de maneira macro antes da implementacao no micro, o que aumenta as chances de que o código escrito esteja correto na primeira vez.
+Nada impede o programador de escrever uma única função para realizar inúmeras tarefas, embora seja uma prática desencorajada devido ao problema de compreensibilidade do código que isso gera.
+É perfeitamente natural adicionar várias etapas de processamento e transformações em uma rotina na programação imperativa; não existe nenhum atrito no processo.
+Essa diferença no processo de desenvolvimento não livra o código de bugs, eles ainda ocorrem, mas o paradigma funcional força o entendimento do problema de maneira macro antes da implementação no micro, o que aumenta as chances de que o código escrito esteja correto na primeira vez.
 
-Um aspecto que nao ficou claro durante o desenvolvimento do projeto eh como lidar com um problema estruturalmente complexo.
-O problema de implementar um motor de busca eh regex tem poucos tipos de dados, somente a arvore de parse e a automata.
+Um aspecto que não ficou claro durante o desenvolvimento do projeto é como lidar com um problema estruturalmente complexo.
+A implementação de um motor de busca para regexes tem poucos tipos de dados, somente a árvore de parse e a automata.
 Seria interessante ver como uma linguagem funcional se comportaria em um problema com varios tipos de dados e estruturas diferentes.
