@@ -1,35 +1,35 @@
 \subsection{Programação Funcional}
 
-%A maquina de Turing foi muito importante para a evolução dos computadores, um modelo idealizado capaz de resolver vários problemas a partir de instruções simples.
-%Usando o modelo da maquina de Turing, os processadores foram projetados para mimicar essas operações, introduzindo instruções leitura, comparação e jump.
-%Como consequencia, vieram as linguagens assembly, uma especie de dicionario que permite programar usando palavras ao invés de códigos de instruções.
+%A máquina de Turing foi muito importante para a evolução dos computadores, um modelo idealizado capaz de resolver vários problemas a partir de instruções simples.
+%Usando o modelo da máquina de Turing, os processadores foram projetados para mimicar essas operações, introduzindo instruções leitura, comparação e jump.
+%Como consequência, vieram as linguagens assembly, uma espécie de dicionário que permite programar usando palavras ao invés de códigos de instruções.
 %Embora assembly tenha facilitado muito a programação, ela ainda é muito próximo do hardware e extremamente trabalhoso de definir os passos para escrever um programa.
 %Para resolver isso veio a programação estruturada, que introduziu os ifs, whiles e fors.
-%O processo de design de linguagens foi longo, foram diversas abstrações, construidas de maneira iterativa.
+%O processo de design de linguagens foi longo, foram diversas abstrações, construídas de maneira iterativa.
 %Atualmente o paradigma considerado mais alto nível e muito usado é a orientação a objetos.
 %Perceba que as linguagens imperativas foram construídas a partir de uma construção simples e que o resultado foi um processo longo para tornar esse modelo mais intuitivo aos humanos, especialmente com a programação orientada a objetos.
 
-Programação funcional é um paradgima computacional que, de certa forma, contrasta com o paradigma imperativo.
-Esse paradigma é um topico extenso e rico, com uma longa historía por traz.
+Programação funcional é um paradigma computacional que, de certa forma, contrasta com o paradigma imperativo.
+Esse paradigma é um tópico extenso e rico, com uma longa história por traz.
 Resumir esse assunto amplo é um desafio pois várias foram as contribuições e descobertas nesse campo de estudo.
-Um ponto de inicio é a definição dada por Bird \cite{Bird},
+Um ponto de início é a definição dada por Bird \cite{Bird},
 \begin{quotation}
-"Programção funcional é: um método para construção de programas que enfatiza funções e suas aplicações ao invéz de commandos e suas execuções; programação funcional faz uso de notações matemática simples que permite que problemas sejam descritos de maneira clara e concisa. [...]".
+"Programação funcional é: um método para construção de programas que enfatiza funções e suas aplicações ao invés de comandos e suas execuções; programação funcional faz uso de notações matemática simples que permite que problemas sejam descritos de maneira clara e concisa. [...]".
 \end{quotation}
 Esse paradigma difere do imperativo pois a programação imperativa foca em passos para resolver um problema.
 O paradigma funcional tira o foco dos passos individuais para solucionar o problema e enfatiza uma estrutura para resolver o problema.
 
-Embora seja dificil definir exatamente o paradigma funcional, a sua origem é bem clara.
-De maneira simplificada, o paradigma funcional veio a partir de um modelo computacional conhecido como Calculo Lambda.
-Segundo \cite{lambda}, o calculo lambda é um modelo de computabilidade criado por Alonzo Church em 1930
-Nesse modelo, a operação basica é a aplicação de funções \cite{lambda}.
-O calculo lambda teve um impacto muito importante na programação funcional, e alguns autores defendem que o calculo lambda é fundamental para a aprendizagem de programação funcional, porém nesse trabalho esse tópico não será abordado.
+Embora seja difícil definir exatamente o paradigma funcional, a sua origem é bem clara.
+De maneira simplificada, o paradigma funcional veio a partir de um modelo computacional conhecido como Cálculo Lambda.
+Segundo \cite{lambda}, o cálculo lambda é um modelo de computabilidade criado por Alonzo Church em 1930
+Nesse modelo, a operação básica é a aplicação de funções \cite{lambda}.
+O cálculo lambda teve um impacto muito importante na programação funcional, e alguns autores defendem que o cálculo lambda é fundamental para a aprendizagem de programação funcional, porém nesse trabalho esse tópico não será abordado.
 
-A grande linguagem lisp marca as origens da programação funcional pois foi a primeira linguagem baseada no calculo lambda \cite{graham}.
-Essa seria apenas a primeira de um grande numero de linguagens que se baseariam nesse modelo.
+A grande linguagem lisp marca as origens da programação funcional pois foi a primeira linguagem baseada no cálculo lambda \cite{graham}.
+Essa seria apenas a primeira de um grande número de linguagens que se basearam nesse modelo.
 
-Deseja-se ressaltar que a famosa maquina de Turing, um conceito muito famoso da teoria da computabilidade, é equivalente ao calculo lambda.
-Embora a maquina de Turing e o calculo lambda seja ideologicamente diferentes, foi comprovado que os dois são equivalentes, hipotese essa conhecida como a hipotese de Churchill-Turing \cite{computability}.
+Deseja-se ressaltar que a famosa máquina de Turing, um conceito muito famoso da teoria da computabilidade, é equivalente ao cálculo lambda.
+Embora a máquina de Turing e o calculo lambda seja ideologicamente diferentes, foi comprovado que os dois são equivalentes, hipótese essa conhecida como a hipótese de Churchill-Turing \cite{computability}.
 Isso significa que os problemas que podem ser resolvidos por uma maquina de Turing, e como consequencia um computador moderno, podem ser resolvidos usando uma linguagem funcional.
 
 Em seguida serão abordados aspectos mais técnicos da programação funcional.
@@ -37,69 +37,69 @@ Em seguida serão abordados aspectos mais técnicos da programação funcional.
 \subsubsection{Imutabilidade}
 
 Um conceito comumente encontrado na programação funcional é a imutabilidade.
-Uma linguagem imutavel trata as variaveis de um programa de maneira similar à matemática, tal que o valor de uma variavel so pode ser definido no momento de sua inicializacão. 
-Isso é equivalente a definir todas as variaveis como final ou constante, dependendo da linguagem imperativa.
+Uma linguagem imutável trata as variáveis de um programa de maneira similar à matemática, tal que o valor de uma variável só pode ser definido no momento de sua inicialização. 
+Isso é equivalente a definir todas as variáveis como final ou constante, dependendo da linguagem imperativa.
 
-A imutabilidade é desejavel pois permite racicionar sobre o programa de maneira mais facil, pois sabemos com certeza que um valor não ira mudar apos ter sido inicializado.
-Isso serve como uma especie de invariante que permite racionalizar sobre o programa, já que o programa não contém nenhum estado que varia com o tempo.
-Isso evita diversos problemas comuns que ocorre quando compartilhamos objetos, desde falta de atenção pela parte do programador até condições de corrida impostas pelo algoritimo.
+A imutabilidade é desejável pois permite raciocinar sobre o programa de maneira mais fácil, pois sabemos com certeza que um valor não irá mudar após ter sido inicializado.
+Isso serve como uma espécie de invariante que permite racionalizar sobre o programa, já que o programa não contém nenhum estado que varia com o tempo.
+Isso evita diversos problemas comuns que ocorre quando compartilhamos objetos, desde falta de atenção por parte do programador até condições de corrida impostas pelo algoritmo.
 
-Essa restrição é interessante pois altera muito a maneira como algoritimos são escritos.
-A ausencia da mutabilidade implica que não existem variaveis acumuladoras nem contadores.
+Essa restrição é interessante pois altera muito a maneira como algoritmos são escritos.
+A ausência da mutabilidade implica que não existem variáveis acumuladoras nem contadores.
 Sem contadores, a alternativa para repetir um bloco de código por n vezes passa a ser a recursão.
-A recursão é extremamente utilizada na programação funcional pois ela permite que uma funcão realize uma computação repetitiva, sem mutar valores.
+A recursão é extremamente utilizada na programação funcional pois ela permite que uma função realize uma computação repetitiva, sem mutar valores.
 
 \subsubsection{Funções como um cidadão de primeira classe}
 
 Na programação, os tipos primitivos de uma linguagem são os blocos a partir do qual é possível construir estruturas complexas.
 Os tipos primitivos podem ser armazenados em uma variável, passados para uma função, e normalmente existem operadores para esses tipos.
-Na a programação funcional, uma função é um tipo de dado primitivo, isso significa que é possível declarar e armazenar uma função em uma variavel, passar uma função para uma função e receber uma função como retorno de uma função \cite{whyfpm}.
+Na a programação funcional, uma função é um tipo de dado primitivo, isso significa que é possível declarar e armazenar uma função em uma variável, passar uma função para uma função e receber uma função como retorno de uma função \cite{whyfpm}.
 
-Na programação funcional, usar uma função como um tipo de dado é uma pratica essencial para criar abstrações.
+Na programação funcional, usar uma função como um tipo de dado é uma prática essencial para criar abstrações.
 Uma função que recebe uma função como argumento é chamada de função de ordem superior.
 Hughes \cite{whyfpm} argumenta que as funções de ordem superior são essenciais pois elas permitem uma melhor reusabilidade de código.
-Essa pratica é tão comum e poderoza que diversas linguagens populares, tal como JavaScript e Python, possuem esse tipo de função no seu core, tais como as funções: \emph{map}, \emph{filter} e \emph{reduce}.
-%In video, explain what each functino does
+Essa prática é tão comum e poderosa que diversas linguagens populares, tal como JavaScript e Python, possuem esse tipo de função no seu core, tais como as funções: \emph{map}, \emph{filter} e \emph{reduce}.
+%In video, explain what each function does
 
 Um exemplo dessa abstração é a função \emph{reduce}, ou como é chamada em Haskell, \emph{fold}.
 Essa função é normalmente utilizada para iterar sobre uma lista de valores e produzir um novo valor.
-Porém, essa abstração em especifico é extremamente poderoza, em \cite{graham} o autor argumenta a favor de sua expressividade.
+Porém, essa abstração em específico é extremamente poderosa, em \cite{graham} o autor argumenta a favor de sua expressividade.
 
-As três funções mencionadas são exemplos de funções de ordem superior reutilizaveis e expressivas.
-É interessante notar que uma função de ordem superior, muitas vezes, pode ser extendida para aceitar diferentes tipos.
-Em Haskell, existe varios tipos de dados que aceitam a função \emph{fold}, não so listas, e em \cite{whyfpm} é argumentado que cada tipo de dado definido deve tambem implementar funções de ordem superior a fim de operar sobre esse tipo.
+As três funções mencionadas são exemplos de funções de ordem superior reutilizáveis e expressivas.
+É interessante notar que uma função de ordem superior, muitas vezes, pode ser estendida para aceitar diferentes tipos.
+Em Haskell, existe varios tipos de dados que aceitam a função \emph{fold}, não só listas, e em \cite{whyfpm} é argumentado que cada tipo de dado definido deve também implementar funções de ordem superior a fim de operar sobre esse tipo.
 
 %For video, talk about functions that return functions
 %Adding behavior before/after method, python decorators and aspects
 
-Em conclusão, funções como um cidadão de primeira classe permite tratar funções como valores e realizar tranformações com elassobre elas de maneira transparente.
+Em conclusão, funções como um cidadão de primeira classe permite tratar funções como valores e realizar transformações com elas de maneira transparente.
 Esse conceito permite que funções de ordem superior existam na linguagem e foi argumentado a favor do poder de abstração dessa prática.
 
 \subsubsection{Indo além}
 
-Existem vários outros importantes conceitos sobre programação funcional, porém por motivos de breviedade eles não serão comentados nesse artigo mas sim, mencionados e direcionados para outras literaturas.
+Existem vários outros importantes conceitos sobre programação funcional, porém por motivos de brevidade eles não serão comentados neste artigo mas sim, mencionados e direcionados para outras literaturas.
 
 Um tópico polarizador em programação funcional é o assunto de \emph{laziness} e \emph{eager}, referindo a quando um valor será computado.
 Existem vantagens e desvantagens para ambos; laziness é interessante por melhor performance em alguns casos, porém dificulta raciocinar sobre o programa.
 É importante mencionar que em \cite{whyfpm}, o autor argumenta que laziness é fundamental para abstrair programas funcionais.
 
-Outro ponto importante é sobre tipos de dados algebricos.
-Tipos de dados algebricos permitem a implementação de tipos de dados recurssivos.
-Em Haskell, uma lista é um tipo de dado recurssivo, com dois construtores.
-Tipos de dados algebricos possibilitam \emph{pattern matching}, uma maneira sucinta de verificar a estrutura de um dado.
+Outro ponto importante é sobre tipos de dados algébricos.
+Tipos de dados algébricos permitem a implementação de tipos de dados recursivos.
+Em Haskell, uma lista é um tipo de dado recursivo, com dois construtores.
+Tipos de dados algébricos possibilitam \emph{pattern matching}, uma maneira sucinta de verificar a estrutura de um dado.
 Uma boa introdução pode ser encontrada em \cite{lipovaca}.
 
 Por último, é importante mencionar alguns assuntos que surgiram no Haskell, dentre eles type classes e monads.
 Type classes foi a solução implementada em Haskell para um problema muito comum em linguagens de programação: override operadores \cite{haskell-ivory}.
-Monads é praticamente uma buzz-word em programação funcional, especialmente na comunidade Haskell.
+Monads é praticamente uma buzzword em programação funcional, especialmente na comunidade Haskell.
 Sobre monads, é interessante mencionar que eles foram a solução para um grande problema que Haskell teve: como ser uma linguagem pura porém com efeitos colaterais \cite{haskell-ivory}.
 
 \subsubsection{Conclusão}
 
-Programação funcional é um tópico extenso com uma historia rica e de maneira nenhuma seria possível introduzir tudo nesse artigo.
-Foi visto como as origens das linguagens funcionais diferem das linguagens imperativas, sendo baseadas no calculo lambda.
+Programação funcional é um tópico extenso com uma história rica e de maneira nenhuma seria possível introduzir tudo nesse artigo.
+Foi visto como as origens das linguagens funcionais diferem das linguagens imperativas, sendo baseadas no cálculo lambda.
 Em seguida foi introduzido dois conceitos importantes: imutabilidade e função como um cidadão de primeira classe.
 Foi argumentado a favor da modularidade e abstração que esses conceitos introduzem.
-Por fim, foi comentado sobre diferentes conceitos importantes para as linguagens funcionais, porém que fogem do escopo desse trabalho.
+Por fim, foi comentado sobre diferentes conceitos importantes para as linguagens funcionais, porém que fogem do escopo deste trabalho.
 
 \input{tex/metodologia}
