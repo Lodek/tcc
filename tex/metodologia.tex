@@ -1,13 +1,8 @@
 \section{METODOLOGIA}
-
-%we doing it live 
-%tools used to generate the data
-%what is needed to reporduce the work
-
-Nessa seção será abordada a arquitetura do software desenvolvida, isso permite uma visão holistica que define uma estrutura.
-O software desenvolvido é uma biblioteca para busca usando expressão regular.
-Essa biblioteca foi quebrada em três modulos publicos e um privado.
-Os modulo internos definem os tipos de dados e implementam as transformações, enquanto o modulo público serfve como uma interface que conecta os modulos e uma interface de entrada / saida.
+Nessa seção será abordada a arquitetura do software desenvolvido, isso permite uma visão holistica que define sua estrutura.
+O software desenvolvido é uma biblioteca de busca usando expressões regulares.
+Essa biblioteca foi quebrada em três modulos privados e um público.
+Os modulo internos definem os tipos de dados e implementam as transformações, enquanto o modulo público serve como uma interface que conecta os modulos.
 Os quatro modulos são: modulo de parse, modulo de automata, modulo de conversão e modulo publico.
 
 \subsection{Modulo de Parse}
@@ -15,34 +10,33 @@ Os quatro modulos são: modulo de parse, modulo de automata, modulo de conversã
 O modulo de parse é o primeiro estágio da pipeline que irá permitir a construção de uma automata de busca.
 Esse módulo é responsável por converter a entrada do usuário (uma String) em uma estrutura intermediária que é consumida pelo módulo conversor.
 
-A saída do parser léxico é uma estrutura em árvore, similar à uma árvore de parse gerada por um compilador.
-Nessa árvore, as folhas dela são as primitivas do alfabeto de entrada (letras como “a”, “b” ou “c”), e os nós se interligam através de operadores, como os operadores de concatenação e alteração da regex.
+A saída do parser é uma estrutura em árvore, similar à uma árvore de parse gerada por um compilador.
+Nessa árvore, suas folhas são as primitivas do alfabeto de entrada (letras como “a”, “b” ou “c”), e os nós se interligam através dos operadores de concatenação e alteração.
 Existe uma exceção para os nós pois eles podem representar uma quantificação também.
-Logo, um nó ou é uma operação que liga subárvores ou é uma quantificação que permite o uso do operador “*”, por exemplo.
+Logo, um nó é uma operação que liga subárvores ou é uma quantificação que permite o uso do operador “*”.
 
-A escolha de uma árvore para essa estrutura intermediária é conveniente por dois motivos: subárvores apresentam uma tradução, quase que, direta com as automatas primitivas que equivalem a expressões regulares e o uso da árvore elimina as ambiguidades referentes à ordem das operações, sem precisar fazer uso de parênteses para indicar a qual grupo de caracteres um operador opera sobre.
-
-Para construir a árvore, o modulo define alguns tipos de dados.
-Na fígura \ref{f-data-parse} é dada a definição dos tipos de dados definidos.
-O típo \emph{Symbol} é sinomimo de um tipo de caractere.
-O tipo \emph{Operator} define uma enumeração, podendo ser ou uma concatenação ou uma alternação.
-O tipo \emph{Quantifier} define uma enumeração, representando o operador de Kleene, também conhecido como estrela.
-O tipo \emph{Token} define um grupo de construções, podendo ser um Token simbolico, token de quantificação, token de operação, delimitador de inicio de grupo ou delimitador de fim de grupo.
-O tipo \emph{SubEpression} representa uma sub-expressão composta por uma lista de tokens ou uma subexpressão quantificada.
-Finalmente, o tipo \emph{ParseTree} representa uma árvore, podendo ter uma folha contendo um símbolo; um nó contendo uma arvore e uma quantificação; um nó contendo uma árvore, operador e outra árvore.
-
+A escolha de uma árvore para essa estrutura intermediária é conveniente por dois motivos. 
+Primeiro, subárvores apresentam uma tradução, quase que, direta com automatas primitivas.
+Segundo, o uso da árvore elimina ambiguidades referentes à ordem das operações, sem precisar fazer uso de parênteses para indicar a qual grupo de caracteres um operador pertence.
 
 \begin{figure}
 \begin{lstlisting}
 type Symbol = Char
 
-data Operator = Concat | Alternation deriving (Show, Eq)
-data Quantifier = Kleene deriving (Show, Eq)
-data Token = SToken Symbol | QtToken Quantifier | OpToken Operator | GroupBegin | GroupEnd deriving (Show, Eq)
+data Operator = Concat | Alternation
+data Quantifier = Kleene
+data Token = SToken Symbol 
+             | QtToken Quantifier 
+             | OpToken Operator 
+             | GroupBegin 
+             | GroupEnd
 
-data SubExpression = SubExp [Token] | QuantifiedSubExp [Token] Quantifier deriving (Show, Eq)
+data SubExpression = SubExp [Token] 
+                     | QuantifiedSubExp [Token] Quantifier
 
-data ParseTree = Node ParseTree Operator ParseTree | QuantifierLeaf ParseTree Quantifier | Leaf Symbol deriving (Show, Eq)
+data ParseTree = Node ParseTree Operator ParseTree 
+                 | QuantifierLeaf ParseTree Quantifier 
+                 | Leaf Symbol
 
 \end{lstlisting}
 \caption{Tipos de dados definidos para o modulo de parse.}
@@ -50,27 +44,48 @@ data ParseTree = Node ParseTree Operator ParseTree | QuantifierLeaf ParseTree Qu
 \end{figure}
 
 
+
+Para construir a árvore, o modulo define alguns tipos de dados, na fígura \ref{f-data-parse} são dadas suas definições.
+O típo \emph{Symbol} é sinomimo de um tipo de caractere.
+O tipo \emph{Operator} define uma enumeração, podendo ser ou uma concatenação ou uma alternação.
+O tipo \emph{Quantifier} define uma enumeração, representando o operador de Kleene, também conhecido como estrela.
+O tipo \emph{Token} define um grupo de construções, podendo ser um token simbolico, token de quantificação, token de operação, delimitador de inicio de grupo ou delimitador de fim de grupo.
+O tipo \emph{SubEpression} representa uma sub-expressão composta por uma lista de tokens ou uma subexpressão quantificada.
+Finalmente, o tipo \emph{ParseTree} representa uma árvore, podendo ter uma folha contendo um símbolo; um nó contendo uma arvore e uma quantificação; um nó contendo uma árvore, operador e outra árvore.
+
+
+
 A implementação desse módulo em Haskell foi feita usando um conjunto de funções que opera sobre os tipos definidos anteriormente.
 A tabela \ref{t-parse-funcs} indica as funções desse módulo, junto com seus tipos de entrada, saída e uma breve descrição sobre cada uma.
-Note que a função buildTree recebe uma String e retorna uma árvore, sendo assim essa função realiza a transformação completa sobre a entrada.
 
 \input{tables/parse-functions.tex}
 
-A arquitetura do módulo de parse é dada pelas funções na tabela \ref{t-parse-funcs} e os tipos de dados enumerados no texto.
-A partir desses elementos, é possível implementar as funções tal que o modulo receba uma expressão regular em uma string e retorne uma árvore que preserve o significado semantico da expressão regular de entrada.
+No módulo é definida a função \emph{buildTree} que recebe uma String e retorna uma árvore, uma função que faz todo o processo de conversão.
+Essa função funciona como uma pipeline de transformações sobre a entrada, até gerar a saída final.
+Primeiramente \emph{buildTree} recebe um valor do tipo string o transforma para uma lista de tokens, que passam por um processo de normalização.
+O processo de normalização adiciona operadores de concatenação entre simbolos, visto que concatenação é uma operação implicita na regex.
+Após normalizada, a regex é validada usando uma lista  de predicados, caso a regex esteja ok, a computação prossegue, caso não o programa retorna um erro.
+Os tokens validados são convertidos para um par de listas: os simbolos são convertidos para uma lista de folhas e os operadores são adicionados à lista de operadores.
+Por fim, as folhas são combinadas usando os operadores da lista de operadores, o resultado do processo de união é uma árvore onde os nós são as folhas unidas pelos operadores.
 
-\subsection{Modulo de Automata}
+O fluxo acima descreve o processo de processamento para uma expressão regular sem sub-grupos.
+No caso de um subgrupo, o mesmo processo é seguido, porém de maneira recurssiva.
+Ao encontrar um grupo o algoritimo de agrupamento de tokens chama a pipeline de conversão novamente.
+No momento em que não existem mais subgrupos, o algoritimo retorna com uma árvore e o processamento pode continuar.
 
-O modulo de Automata implementa o modelo computacional das maquinas de estados.
+\subsection{Modulo de Automatas}
+
+O modulo de automatas implementa funções que permite simular o funcionamento de uma automata.
 Esse modulo define um tipo de dado que representa uma maquina de estados e expõe funções que operam sobre uma maquina de estado.
 
 Primeiramente, foram definidos os tipos de dados necessarios para modelar a maquina de estado.
 A fígura \ref{f-data-automata} contém o trecho de código que define os tipos de dados.
-Foi definido o tipo \emph{SigmaElem} que representa um elemento do alfabeto da automata.
-O tipo \emph{Sigma} o alfabeto da automata, ou seja conjunto de \emph{SigmaElem}.
+Foi definido o tipo \emph{SigmaElem} que representa um elemento do alfabeto da automata, esse tipo contém o construtor \emph{epsilon} que indica o símbolo de entrada nulo.
+O tipo \emph{Sigma} representa o alfabeto da automata, ou seja conjunto de \emph{SigmaElem}.
 O tipo \emph{State} é um alias para um numero inteiro.
 O tipo Delta é um alias para função de transição da maquina de estado, igual ao definido na literatura.
-Finalmente, analogo à literatura, uma maquina de estados é uma tupla de cinco elementos: um alfabeto de tipo \emph{Sigma}, um conjunto de estados, o estado inicial, conjunto de estados de aceitação e a função de transição.
+O tipo NFA define uma maquina de estados.
+NFA é uma tupla de cinco elementos: um alfabeto de tipo \emph{Sigma}, um conjunto de estados, o estado inicial, conjunto de estados de aceitação e a função de transição.
 Percebe-se que a modelagem de uma automata segue exatamente o modelo definido na literatura.
 
 \begin{figure}
@@ -100,17 +115,21 @@ A implementação da automata foi feita de acordo com a literatura \cite{dragon-
 O algoritimo apresentado define algumas funções auxiliares, tal como \emph{epsilonClosure} e \emph{move}.
 As outras funções do modulo foram introduzidas devido a conversão do algoritimo imperativo da literatura para um algoritimo funcional.
 
+Para fazer uso do maquinario que simula uma automata é necessario declarar uma NFA.
+A simulação de uma computaçao é feita usando a função \emph{eval} que recebe uma maquina de estados,  uma lista de símbolos e retorna um valor booleano.
+Após processar todos os símbolos, caso a maquina de estado esteja em um estado de aceitação o retorno da função é verdadeiro, caso contrario falso.
+
 Usando a arquitetura apresentada, a implementação das funções definidas permite a simulação de uma maquina de estados.
 Essa maquina de estados sera utilizada para executar a busca pela expressão regular.
 Para isso, é necessário converter a regex em árvore em uma maquina de estados.
 
 \subsection{Modulo de conversão}
 
-O modulo de conversão é responsável por converter a expressão regular armazenada em uma árvore em uma automata que possa ser executada.
+O modulo de conversão é responsável por converter a expressão regular armazenada em uma árvore para uma automata que possa ser executada.
 
-A literatura contém maquinas de estados para as primitivas de ume expressão regular.
+A literatura contém maquinas de estados para as primitivas de uma expressão regular.
 Usando essas primitivas, é possível combina-las para construir expressões mais complexas.
-O módulo de conversão faz disponibiliza funções para criar e combinar essas primitivas.
+O módulo de conversão disponibiliza funções para criar e combinar essas primitivas.
 A partir dessas funções, basta trafegar pela árvore para transforma-la em um unico valor, ou seja, usar um \emph{fold}.
 
 \input{tables/translator-functions.tex}
@@ -120,17 +139,17 @@ Note que esse modulo não introduz um tipo de dado próprio, apenas realiza tran
 
 \subsection{Modulo público}
 O módulo público cria uma interface para que a biblioteca seja facil de utilizar.
-Nesse módulo é definida uma única função, \emph{match}, que recebe duas strings: uma epxressão regular e um texto sobre o qual a busca é feita.
-\emph{Match} apenas faz chamadas para as funções definidasa nos outros módulos e não introduz nenhuma logica nova.
+Nesse módulo é definida uma única função, \emph{match}, que recebe duas strings: uma expressão regular e um texto sobre o qual a busca é feita.
+\emph{Match} apenas faz chamadas para as funções definidas nos outros módulos e não introduz nenhuma logica nova.
 Esse módulo é apenas uma interface para o usuário.
 
 \subsection{Práticas comuns e observações}
-Embora os módulos da biblioteca tenham objetivos distintos, algumas práticas foram utilizadas para implementar todos eles.
+Embora os módulos da biblioteca tenham objetivos distintos, algumas práticas foram utilizadas em todos eles.
 Para o desenvolvimento das funções foi feito o uso de uma metodologia usando testes untiarios, em que para cada função é escrito um teste para validar seu comportamento.
 Para isso, foi utilizado a biblioteca HUnit do Haskell, uma biblioteca que auxilia na execução de casos de testes.
 A prática de desenvolver testes para as funções dos módulos foi de extrema importância pois permite validar cada unidade lógica do código de maneira individual.
 
-Nessa seção foram introduzidos os diferentes módulos que compõe a biblioteca proposta: parse, automata, conversão e publico; também foi visto as as funções propostas para cada módulo.
+Nessa seção foram introduzidos os diferentes módulos que compõe a biblioteca proposta: parse, automata, conversão e publico; também foi visto as funções propostas para cada módulo.
 Essa descrição da arquitetura do software permite o seu entendimento sem entrar nas nuancias associadas a implementação das funções.
 Além disso, permite que diferentes implementações existam, pois uma vez definida a interface do programa, basta que as partes previstas existam para que o mesmo funcione, sem existir a dependencia de como a interface é implementada.
 O código completo para a biblioteca está disponivel no apendice 1 e no site http://github.com/lodek/regex-engine.
