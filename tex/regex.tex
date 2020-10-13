@@ -18,7 +18,7 @@ As operções básica são: concatenação, alternação, repetição e agrupame
 A regex mais simple é um único caractere não especial, por exemplo "0", uma regex que procura pelo caractere "0".
 A operação de concatenção é implicita em uma regex, qualquer dois caracteres justapostos, não especiais, estão concatenados.
 Sendo assim, a regex "01" procura pelo string "01".
-A alternação normalemente é indicada pelo caractere "\|", que indica que um caractere ou outro é valido.
+A alternação normalemente é indicada pelo caractere "$\|$", que indica que um caractere ou outro é valido.
 Um exemplo de alternação é a regex "01|0", que procura pelos strings "01" ou "00".
 Existem vários operadores de repetição, um dos mais usados é o operador de Kleene, normalmente indicado por "*", esse operador indica que o caractere, ou grupo, que o precede pode ocorrer 0 ou mais veses.
 Por exemplo, a regex "01*" é equivalente a "0", "01", "011" e "0111...", ou seja, qualquer string que tenha um "0" seguido por qualquer numero de "1"s.
